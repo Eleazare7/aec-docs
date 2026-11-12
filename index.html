@@ -5544,10 +5544,10 @@ document.addEventListener("submit", e => { if (e.target.id !== "wb-new-form") re
   const id = uid(), np = newProject(id); np.docLang = "zh"; np.a.name = name; prismCodeEnsure(np); np.ent = null; if (S.client && S.client !== NOCLIENT) np.a.client = S.client;
   initStd(np, S.ruleDefaults.std); seedRlib(np, "template"); generateReqs(np); np.updatedAt = Date.now(); S.projects[id] = np; save(np, true);
   S.wbNew = false; S.wbTarget = id; S.wbFresh = id; S.wbRailPage = 0;
-  S.page = "client-projects"; S.cur = null; S.wbEnt = null; S.wbStg = null; S.wbStgPrev = null; S.wbPage = 0;
+  S.page = "entity"; S.cur = null; S.wbEnt = null; S.wbStg = null; S.wbStgPrev = null; S.wbPage = 0;
   S.wbMsg = both(`已建立「${name}」（${np.a.code}）。請選擇您的單位繼續。`, `${name} created (${np.a.code}). Choose your party to continue.`);
   render(); window.scrollTo(0, 0);
-  requestAnimationFrame(() => { const first = document.querySelector(".cp-project[data-id]"); if (first) first.focus({ preventScroll: true }); }); });
+  requestAnimationFrame(() => { const first = document.querySelector(".wb-ents .wb-ent"); if (first) first.focus({ preventScroll: true }); }); });
 document.addEventListener("change", e => { const i = e.target; if (!i || !["itk-name", "itk-code", "itk-tender"].includes(i.id)) return; const p = S.projects[S.itk]; if (!p) return;
   const path = { "itk-name": "a.name", "itk-code": "a.code", "itk-tender": "a.tenderNo" }[i.id]; let v = i.value.trim();
   if (path === "a.code") { v = prismCodeClean(v) || prismCodeNext(p.createdAt, p.id); i.value = v; } p.a[path.slice(2)] = v;
