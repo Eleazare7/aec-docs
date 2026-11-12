@@ -5565,7 +5565,23 @@ document.addEventListener("submit", async e => { if (e.target.id !== "cl-form") 
   if (!(await clSave(c))) return;
   /* a renamed client renames its projects' client field too */
   if (oldName && oldName !== name) { Object.values(S.projects).filter(p => clientKey(p) === oldName).forEach(p => { p.a.client = name; save(p, true); }); if (S.client === oldName) { S.client = name; try { localStorage.setItem("prism.client", name); } catch (er) {} } }
-  S.clForm = null; S.clMsg = null; S.clFresh = c.id; render(); setTimeout(() => { S.clFresh = null; }, 4000);
+  S.clForm = null; S.clMsg = null; S.clFresh = c.id;
+  // v127: Saving a new client opens that client's workspace immediately,
+  // identical to clicking its client card; editing an existing client stays on the list.
+  if (!F.id) {
+    S.client = name;
+    try { localStorage.setItem("prism.client", name); } catch (er) {}
+    S.folder = name;
+    S.pfPage = 0;
+    S.cur = null;
+    S.wbEnt = null;
+    S.wbStg = null;
+    S.page = "entity";
+    render();
+    window.scrollTo(0, 0);
+    return;
+  }
+  render(); setTimeout(() => { S.clFresh = null; }, 4000);
   const card = [...document.querySelectorAll(".clwrap .clcard")].find(x => x.dataset.k === name); if (card) { card.scrollIntoView({ block: "nearest", behavior: "smooth" }); card.focus({ preventScroll: true }); } });
 document.addEventListener("input", e => { if (e.target.id !== "cl-find") return; const v = e.target.value, pos = e.target.selectionStart; S.clQ = v; S.clPage = 0; render();
   const f = document.getElementById("cl-find"); if (f) { f.focus(); try { f.setSelectionRange(pos, pos); } catch (er) {} } });
