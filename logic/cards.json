@@ -1,0 +1,2186 @@
+{
+ "v": 1,
+ "built": "2026-11-05",
+ "style": [
+  "台灣公共工程正式書面語，主詞多用「本專案」「本團隊」「統包團隊」；避免口語、行銷語及第一人稱「我」。",
+  "句式採「依據…，…應／將…」；條列用（一）、1.、(1) 層級；一段只講一件事。",
+  "日期封面及核章處用民國年；內文表格可用 YYYY/MM/DD。",
+  "只能使用專案資料中提供的事實；未提供的數量、日期、條號、人名、地址一律寫〔待確認〕。",
+  "不可寫入其他專案名稱、地名或公司名稱。"
+ ],
+ "sector": {
+  "public": "公共工程用語：主辦機關、專案管理單位（PCM）、監造單位、廠商／統包團隊。",
+  "private": "民間工程用語：業主、建築師、營造廠；不寫「機關」「監造單位」。"
+ },
+ "cards": {
+  "PL-01": {
+   "code": "PL-01",
+   "name": "BIM 工作執行計畫書（決標後）",
+   "purpose": "決標後由廠商 BIM 經理撰寫，說明本專案各階段 BIM 工作如何執行、由誰執行、交付什麼；送監造審查、PCM 核定、機關備查。",
+   "filledBy": "廠商 BIM 經理；簽約後 30 日內提送（第0-A版起），依審查意見改版。",
+   "sections": [
+    {
+     "anchor": "第一章 BIM工作執行",
+     "intent": "概述各階段 BIM 工作與組織；依啟用階段改寫（設計階段專案以設計工作為主）。",
+     "drivers": [
+      "stages",
+      "currentStage",
+      "lod",
+      "team",
+      "uses"
+     ],
+     "must": [
+      "各啟用階段之工作重點",
+      "BIM Room／人員配置"
+     ],
+     "avoid": [
+      "只寫施工階段機電（TP 原為施工機電專案）"
+     ],
+     "write": false
+    },
+    {
+     "anchor": "1.1.1 BIM Room組織架構",
+     "intent": "說明 BIM 組織、角色與權責，與團隊表一致。",
+     "drivers": [
+      "team"
+     ],
+     "must": [
+      "BIM 經理、協調人員、建模人員之職責"
+     ],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "1.1.2 軟硬體配置",
+     "intent": "列出本專案使用之軟體版本與用途、硬體規格。",
+     "drivers": [
+      "software",
+      "checkers",
+      "cde"
+     ],
+     "must": [
+      "軟體名稱及版本鎖定原則"
+     ],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "1.2.1 BIM工作項目",
+     "intent": "依本專案 BIM 應用項目列出工作項目（建模、整合、出圖、月報、會議）。",
+     "drivers": [
+      "uses",
+      "midp"
+     ],
+     "must": [
+      "會議主席、列席單位、會議週期"
+     ],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "1.2.3 文件管理流程",
+     "intent": "以本專案 CDE 平台說明文件提送、審查、核定流程。",
+     "drivers": [
+      "cde",
+      "reviewDays"
+     ],
+     "must": [
+      "狀態流轉 S0→S1–S4→A",
+      "審查天數"
+     ],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "1.3 竣工階段",
+     "intent": "竣工模型、COBie、結案報告與會議。",
+     "drivers": [
+      "stages",
+      "asbuilt"
+     ],
+     "must": [
+      "竣工模型以實際安裝為準"
+     ],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "1.4 各階段BIM執行項目之交付期程",
+     "intent": "依 MIDP 寫交付項目與日期。",
+     "drivers": [
+      "midp",
+      "stages"
+     ],
+     "must": [],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "1.6 教育訓練",
+     "intent": "依訓練計畫寫課程、時數、對象。",
+     "drivers": [
+      "training"
+     ],
+     "must": [],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "第二章 BIM模型深化程度",
+     "intent": "依各階段 LOD 與 LOIN 說明深化程度。",
+     "drivers": [
+      "lod",
+      "loin"
+     ],
+     "must": [
+      "各階段 LOD",
+      "竣工為紀錄模型，不寫 LOD500 以外之自訂等級"
+     ],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "第三章 BIM建模準則",
+     "intent": "座標（TWD97 TM2）、單位、命名、色彩計畫。",
+     "drivers": [
+      "crs",
+      "naming",
+      "colours"
+     ],
+     "must": [],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "第四章 BIM協同作業平台",
+     "intent": "以本專案 CDE 說明平台、權限、版次管理。",
+     "drivers": [
+      "cde",
+      "statusCodes",
+      "revCodes"
+     ],
+     "must": [],
+     "avoid": [],
+     "write": false
+    }
+   ],
+   "rewrite": {
+    "force": [
+     "○○",
+     "日曆天",
+     "\\d+\\s*(層|樓|F)",
+     "(路|街|段|區)\\d*",
+     "本工程為"
+    ],
+    "keep": [
+     "^(BIM|模型)[^。]{0,40}(定義|說明如下)"
+    ]
+   },
+   "variants": [
+    "設計階段 BEP：第一章以基本／細部設計建模、圖說產出、數量估算、設計審查為主。",
+    "施工階段 BEP：第一章以施工圖、CSD/SEM 整合、施工模型、月報為主。",
+    "公共工程：封面後置計畫書送審核章表（RV-01）與送審管制表。"
+   ],
+   "hooks": [
+    "team",
+    "training",
+    "midp"
+   ],
+   "notes": []
+  },
+  "RP-01": {
+   "code": "RP-01",
+   "name": "階段 BIM 成果報告書",
+   "purpose": "各階段（細部設計、施工 30/60/90%、竣工、維運移交）結束時，彙整該階段 BIM 成果、檢核結果與會議紀錄，供審查核定。",
+   "filledBy": "廠商 BIM 團隊；各階段審查時提送，依審查意見修正（修正一版、二版…）。",
+   "sections": [
+    {
+     "anchor": "第一章 專案服務範圍",
+     "intent": "以本專案資料改寫背景、目的與依據文件（統包需求書／契約 BIM 章節）。",
+     "drivers": [
+      "a.name",
+      "a.client",
+      "a.location",
+      "a.type",
+      "parties",
+      "a.lap"
+     ],
+     "must": [
+      "主辦機關、工程名稱、PCM／監造、統包團隊",
+      "報告依據"
+     ],
+     "avoid": [
+      "沿用他案之政策背景（社會住宅等）除非專案類型相同"
+     ],
+     "write": false
+    },
+    {
+     "anchor": "1.2 專案位置及地址簡介",
+     "intent": "以專案地點撰寫一句位置說明並引用基地位置圖。",
+     "drivers": [
+      "a.location"
+     ],
+     "must": [],
+     "avoid": [
+      "自行編造路名或地號"
+     ],
+     "write": false
+    },
+    {
+     "anchor": "1.3 專案服務範圍",
+     "intent": "說明本專案建物規模、構造及建模專業範圍。",
+     "drivers": [
+      "a.type",
+      "disciplines"
+     ],
+     "must": [
+      "建模專業"
+     ],
+     "avoid": [
+      "編造樓層數；未知時〔待確認〕"
+     ],
+     "write": false
+    },
+    {
+     "anchor": "第二章 BIM應用目標與工作項目",
+     "intent": "依本階段 BIM 應用項目與目標撰寫。",
+     "drivers": [
+      "uses",
+      "currentStage",
+      "lod"
+     ],
+     "must": [
+      "本階段 LOD",
+      "應用項目清單"
+     ],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "2.1.2 BIM工作項目",
+     "intent": "列出本階段應交付之報告書內容與期限。",
+     "drivers": [
+      "midp",
+      "currentStage"
+     ],
+     "must": [
+      "提送期限依 MIDP；無資料寫〔待確認〕"
+     ],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "2.1.3 BIM執行工作方式及流程",
+     "intent": "說明模型整合、自主檢查、衝突釋疑流程。",
+     "drivers": [
+      "cde"
+     ],
+     "must": [
+      "引用流程圖"
+     ],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "第三章 BIM執行成果",
+     "intent": "依本專案紀錄撰寫成果：模型、整合、出圖、數量、衝突統計。",
+     "drivers": [
+      "clashes",
+      "models",
+      "rfis"
+     ],
+     "must": [
+      "衝突件數、已解決比例（取自紀錄）"
+     ],
+     "avoid": [
+      "寫出未紀錄之檢討項目"
+     ],
+     "write": true
+    },
+    {
+     "anchor": "3.1.1 模型專案資訊說明",
+     "intent": "專案基準點、座標系統、正北角度。",
+     "drivers": [
+      "crs",
+      "survey"
+     ],
+     "must": [
+      "TWD97 TM2",
+      "控制點未提供時〔待確認〕"
+     ],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "第四章",
+     "intent": "例行會議、自主檢查及會議歷程。",
+     "drivers": [
+      "meetings",
+      "clashes"
+     ],
+     "must": [
+      "會議次數與主要決議（取自會議紀錄）"
+     ],
+     "avoid": [],
+     "write": false
+    }
+   ],
+   "rewrite": {
+    "force": [
+     "○○",
+     "日曆天",
+     "\\d+\\s*點號",
+     "地下.{0,3}層",
+     "地上.{0,3}層",
+     "(路|街)\\S{0,4}(交叉口|巷)",
+     "本工程為",
+     "細部設計階段",
+     "社會住宅"
+    ],
+    "keep": []
+   },
+   "variants": [
+    "細部設計階段：TP 原樣（建模、整合、2D 出圖、數量估算、3D 視覺化、自主檢核、動畫透視）。",
+    "竣工／維運移交階段：加入 COBie 資訊成果、現場自檢、監造抽查、色彩計畫、教育訓練、維護保固手冊、營運單位需求訪談；附錄改為聯合模型、元件資訊深化表、現場自檢資料、建模日誌、模型檢核表。",
+    "施工階段（30/60/90%）：以施工模型、CSD/SEM、現場與模型比對、衝突總表為主。"
+   ],
+   "hooks": [
+    "clashes",
+    "rfis",
+    "meetings",
+    "models",
+    "reviews"
+   ],
+   "notes": []
+  },
+  "RP-03": {
+   "code": "RP-03",
+   "name": "BIM 月報／季報",
+   "purpose": "施工階段每月提送之 BIM 工作月報：當月模型成果、提送期程、進度、3D 整合、例行會議、衝突總表、自主檢查與現場比對。",
+   "filledBy": "廠商 BIM 團隊；每月 5 日前提送上月月報（依契約）。",
+   "sections": [
+    {
+     "anchor": "第一章 BIM執行成果",
+     "intent": "當月建模與檔案成果，依模型檔案總表撰寫。",
+     "drivers": [
+      "models",
+      "reportMonth"
+     ],
+     "must": [
+      "本月更新之模型與檔名（取自模型檔案紀錄）"
+     ],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "1.3 BIM工作執行與提送期程",
+     "intent": "依 MIDP 說明本月應提送項目與實際提送。",
+     "drivers": [
+      "midp",
+      "reviews"
+     ],
+     "must": [],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "1.4 BIM工作進度報告",
+     "intent": "本月進度與下月預定工作。",
+     "drivers": [
+      "currentStage",
+      "midp"
+     ],
+     "must": [
+      "進度百分比未提供時〔待確認〕"
+     ],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "第二章 各專業3D模型整合",
+     "intent": "本月整合成果與重點檢討區域。",
+     "drivers": [
+      "clashes"
+     ],
+     "must": [
+      "本月新增／解決之衝突件數"
+     ],
+     "avoid": [],
+     "write": true
+    },
+    {
+     "anchor": "第三章 BIM例行會議及自主檢查",
+     "intent": "本月會議次數、日期、主要決議與未結事項。",
+     "drivers": [
+      "meetings",
+      "clashes",
+      "rfis"
+     ],
+     "must": [
+      "會議日期與決議取自會議紀錄",
+      "未結管制事項"
+     ],
+     "avoid": [],
+     "write": true
+    },
+    {
+     "anchor": "第四章 BIM現場查驗及模型比對",
+     "intent": "現場與模型比對結果。",
+     "drivers": [],
+     "must": [
+      "比對結果未提供時〔待確認〕"
+     ],
+     "avoid": [],
+     "write": false
+    }
+   ],
+   "rewrite": {
+    "force": [
+     "○○",
+     "\\d+\\s*月份",
+     "本月",
+     "\\d+年\\d+月"
+    ],
+    "keep": []
+   },
+   "variants": [
+    "月報封面須載年度、月份、版次（初版／修正一版）。",
+    "季報：彙整三個月之會議、衝突趨勢與進度。"
+   ],
+   "hooks": [
+    "clashes",
+    "rfis",
+    "meetings",
+    "models",
+    "reviews"
+   ],
+   "notes": []
+  },
+  "HO-01": {
+   "code": "HO-01",
+   "name": "竣工模型說明書",
+   "purpose": "竣工移交時說明竣工模型屬性資料（COBie）之依據、架構、建置標準、專案設定與檔案交付方式。",
+   "filledBy": "廠商 BIM 團隊；竣工階段提送。",
+   "sections": [
+    {
+     "anchor": "總則",
+     "intent": "說明本說明書之目的與適用之竣工模型屬性資料標準。",
+     "drivers": [
+      "a.client",
+      "a.location"
+     ],
+     "must": [
+      "適用標準以專案契約為準"
+     ],
+     "avoid": [
+      "寫成特定縣市政府之政策，除非本專案主辦機關即為該機關"
+     ],
+     "write": false
+    },
+    {
+     "anchor": "專案設定",
+     "intent": "專案基準點、共用座標、方位、單位。",
+     "drivers": [
+      "crs",
+      "units"
+     ],
+     "must": [
+      "TWD97 TM2／TWVD2001"
+     ],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "檔案交附說明",
+     "intent": "列出交付檔案格式與交付方式。",
+     "drivers": [
+      "formats",
+      "cde"
+     ],
+     "must": [
+      "原生檔、IFC、COBie(xlsx)"
+     ],
+     "avoid": [],
+     "write": false
+    }
+   ],
+   "rewrite": {
+    "force": [
+     "臺北市",
+     "台北市",
+     "○○"
+    ],
+    "keep": [
+     "^COBie",
+     "^國際",
+     "Construction Operations Building"
+    ]
+   },
+   "variants": [
+    "主辦機關非臺北市時，將「臺北市竣工模型屬性資料作業標準」改寫為「本專案契約約定之竣工模型屬性資料標準」，並保留 COBie 說明。"
+   ],
+   "hooks": [],
+   "notes": []
+  },
+  "HO-04": {
+   "code": "HO-04",
+   "name": "專案經驗回饋報告",
+   "purpose": "專案結束後彙整 BIM 執行經驗：做得好的、待改善、根本原因與建議，回饋公司標準與規則庫。",
+   "filledBy": "BIM 經理；結案時。",
+   "sections": [
+    {
+     "anchor": "INTRODUCTION",
+     "intent": "專案背景與 BIM 服務範圍。",
+     "drivers": [
+      "a.name",
+      "a.client",
+      "a.location",
+      "a.type",
+      "parties",
+      "a.lap",
+      "uses"
+     ],
+     "must": [],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "CONTENT",
+     "intent": "本案 BIM 工作內容摘要。",
+     "drivers": [
+      "uses",
+      "stages"
+     ],
+     "must": [],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "成果",
+     "intent": "以紀錄統計（衝突、RFI、會議、送審）說明成效。",
+     "drivers": [
+      "clashes",
+      "rfis",
+      "meetings",
+      "reviews"
+     ],
+     "must": [
+      "以數字呈現（取自紀錄）"
+     ],
+     "avoid": [],
+     "write": true
+    },
+    {
+     "anchor": "檢討",
+     "intent": "待改善事項與建議，對應規則庫。",
+     "drivers": [
+      "ruleRun"
+     ],
+     "must": [
+      "每項：問題→原因→建議"
+     ],
+     "avoid": [],
+     "write": true
+    }
+   ],
+   "rewrite": {
+    "force": [
+     "○○",
+     "\\d+(\\.\\d+)?\\s*公頃",
+     "園區",
+     "基地"
+    ],
+    "keep": []
+   },
+   "variants": [],
+   "hooks": [
+    "clashes",
+    "rfis",
+    "meetings",
+    "reviews"
+   ],
+   "notes": []
+  },
+  "TR-01": {
+   "code": "TR-01",
+   "name": "BIM 教育訓練計畫書",
+   "purpose": "依契約規定，對業主、PCM、監造及營運單位辦理 BIM 教育訓練之計畫：各階段課程、時數、對象、講師與地點。",
+   "filledBy": "廠商 BIM 團隊；施工階段開始後提送。",
+   "sections": [
+    {
+     "anchor": "教育訓練計畫",
+     "intent": "說明訓練依據（契約／施工規範章節）與目的（技術轉移）。",
+     "drivers": [
+      "spec_reference",
+      "parties"
+     ],
+     "must": [
+      "依據條文未提供時〔待確認〕"
+     ],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "施工階段",
+     "intent": "施工階段課程主題、時數、對象與方式（實體／線上）。",
+     "drivers": [
+      "training"
+     ],
+     "must": [
+      "課程取自訓練計畫資料"
+     ],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "竣工階段",
+     "intent": "竣工階段以模型操作、檢閱、資訊查閱、平台操作為主之技術轉移。",
+     "drivers": [
+      "training"
+     ],
+     "must": [],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "講師資訊",
+     "intent": "授課主題與講師對應。",
+     "drivers": [
+      "team"
+     ],
+     "must": [
+      "講師姓名未提供時〔待確認〕"
+     ],
+     "avoid": [],
+     "write": false
+    }
+   ],
+   "rewrite": {
+    "force": [
+     "○○",
+     "第\\d+[A-Z]?章"
+    ],
+    "keep": []
+   },
+   "variants": [],
+   "hooks": [
+    "training"
+   ],
+   "notes": []
+  },
+  "PL-07": {
+   "code": "PL-07",
+   "name": "BIM 作業啟動計畫（啟動會議紀錄）",
+   "purpose": "BIM 作業啟動（起始）會議：確認會議機制、系統命名與色彩計畫、聯絡窗口、首次交付里程碑。",
+   "filledBy": "廠商 BIM 經理主持並紀錄；決標後首次會議。",
+   "sections": [
+    {
+     "anchor": "議程",
+     "intent": "依本專案列出議程。",
+     "drivers": [
+      "meetings"
+     ],
+     "must": [],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "本次討論事項",
+     "intent": "討論事項與決議：會議週期、命名與色彩、聯絡窗口、首個里程碑。",
+     "drivers": [
+      "milestone",
+      "zones",
+      "team"
+     ],
+     "must": [
+      "里程碑日期取自階段日期"
+     ],
+     "avoid": [],
+     "write": false
+    }
+   ],
+   "rewrite": {
+    "force": [
+     "○○",
+     "區"
+    ],
+    "keep": []
+   },
+   "variants": [],
+   "hooks": [
+    "meetings"
+   ],
+   "notes": []
+  },
+  "QA-06": {
+   "code": "QA-06",
+   "name": "衝突檢討報告",
+   "purpose": "彙整衝突（碰撞）議題：每件之編號、位置、描述（現況→影響→要求行動）、負責單位、期限與處理狀態，並統計。",
+   "filledBy": "廠商 BIM 協調人員；每次協調會議前或依階段提送。",
+   "sections": [
+    {
+     "anchor": "Contents",
+     "intent": "依衝突紀錄產生議題清單與統計。",
+     "drivers": [
+      "clashes"
+     ],
+     "must": [
+      "依嚴重度與狀態統計件數"
+     ],
+     "avoid": [],
+     "write": true
+    },
+    {
+     "anchor": "Standard fields",
+     "intent": "每件議題之欄位：位置、建立者、指派、期限、狀態、根本原因。",
+     "drivers": [
+      "clashes"
+     ],
+     "must": [],
+     "avoid": [],
+     "write": false
+    }
+   ],
+   "rewrite": {
+    "force": [],
+    "keep": []
+   },
+   "variants": [],
+   "hooks": [
+    "clashes"
+   ],
+   "notes": []
+  },
+  "PL-10": {
+   "code": "PL-10",
+   "name": "BIM 服務建議書",
+   "purpose": "簽約前向業主提出之 BIM 服務建議：對本案之理解、服務範圍、交付成果、方法、團隊、時程與費用基礎。",
+   "filledBy": "BIM 顧問；投標或洽談階段。",
+   "sections": [
+    {
+     "anchor": "建議書說明",
+     "intent": "說明提案方、對象與目的。",
+     "drivers": [
+      "a.name",
+      "a.client",
+      "a.location",
+      "a.type",
+      "parties",
+      "a.lap"
+     ],
+     "must": [],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "專案概要與需求理解",
+     "intent": "以 EIR 需求數與 BIM 應用項目說明對本案之理解與重點。",
+     "drivers": [
+      "reqs",
+      "uses",
+      "stages"
+     ],
+     "must": [
+      "引用 EIR 章節重點"
+     ],
+     "avoid": [
+      "承諾未列入範圍之服務"
+     ],
+     "write": false
+    },
+    {
+     "anchor": "服務範圍",
+     "intent": "依階段列出服務項目與交付成果。",
+     "drivers": [
+      "uses",
+      "midp"
+     ],
+     "must": [],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "團隊",
+     "intent": "依團隊表列出角色與年資。",
+     "drivers": [
+      "team"
+     ],
+     "must": [],
+     "avoid": [],
+     "write": false
+    }
+   ],
+   "rewrite": {
+    "force": [],
+    "keep": []
+   },
+   "variants": [],
+   "hooks": [
+    "team"
+   ],
+   "notes": []
+  },
+  "PM-01": {
+   "code": "PM-01",
+   "name": "設計圖說、規範及預算一致性審查報告",
+   "purpose": "PCM 交叉比對圖說、規範、預算之漏列、重複與矛盾。",
+   "filledBy": "PCM（專案管理）；依契約頻率或事件提送。",
+   "sections": [
+    {
+     "anchor": "目的與範圍",
+     "intent": "以本專案名稱、審查標的與期間改寫目的與範圍。",
+     "drivers": [
+      "a.name",
+      "a.client",
+      "a.location",
+      "a.type",
+      "parties",
+      "a.lap"
+     ],
+     "must": [
+      "審查標的",
+      "審查期間（未提供時〔待確認〕）"
+     ],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "發現事項及處理",
+     "intent": "依紀錄彙整發現事項（現況→影響→要求行動），每項指定負責單位與期限。",
+     "drivers": [
+      "reviews",
+      "rfis"
+     ],
+     "must": [
+      "只寫紀錄中存在之事項；無紀錄時寫〔待確認〕並保留空白表"
+     ],
+     "avoid": [
+      "自行編造發現事項或數量"
+     ],
+     "write": true
+    },
+    {
+     "anchor": "結論與建議",
+     "intent": "依發現事項之件數與嚴重度寫結論與建議，未結事項列追蹤。",
+     "drivers": [
+      "reviews",
+      "rfis"
+     ],
+     "must": [
+      "結論與發現事項一致"
+     ],
+     "avoid": [
+      "在沒有發現事項時寫「符合」"
+     ],
+     "write": true
+    }
+   ],
+   "rewrite": {
+    "force": [],
+    "keep": []
+   },
+   "variants": [],
+   "hooks": [
+    "reviews",
+    "rfis"
+   ],
+   "notes": [
+    "非 BIM 專屬文件；用語依 PCM／監造角色撰寫。"
+   ]
+  },
+  "PM-02": {
+   "code": "PM-02",
+   "name": "工程進度落後分析及改善建議報告",
+   "purpose": "PCM 分析進度落後原因並提出趕工建議。",
+   "filledBy": "PCM（專案管理）；依契約頻率或事件提送。",
+   "sections": [
+    {
+     "anchor": "目的與範圍",
+     "intent": "以本專案名稱、審查標的與期間改寫目的與範圍。",
+     "drivers": [
+      "a.name",
+      "a.client",
+      "a.location",
+      "a.type",
+      "parties",
+      "a.lap"
+     ],
+     "must": [
+      "審查標的",
+      "審查期間（未提供時〔待確認〕）"
+     ],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "發現事項及處理",
+     "intent": "依紀錄彙整發現事項（現況→影響→要求行動），每項指定負責單位與期限。",
+     "drivers": [
+      "midp",
+      "stages"
+     ],
+     "must": [
+      "只寫紀錄中存在之事項；無紀錄時寫〔待確認〕並保留空白表"
+     ],
+     "avoid": [
+      "自行編造發現事項或數量"
+     ],
+     "write": true
+    },
+    {
+     "anchor": "結論與建議",
+     "intent": "依發現事項之件數與嚴重度寫結論與建議，未結事項列追蹤。",
+     "drivers": [
+      "midp",
+      "stages"
+     ],
+     "must": [
+      "結論與發現事項一致"
+     ],
+     "avoid": [
+      "在沒有發現事項時寫「符合」"
+     ],
+     "write": true
+    }
+   ],
+   "rewrite": {
+    "force": [],
+    "keep": []
+   },
+   "variants": [],
+   "hooks": [
+    "midp",
+    "stages"
+   ],
+   "notes": [
+    "非 BIM 專屬文件；用語依 PCM／監造角色撰寫。"
+   ]
+  },
+  "PM-03": {
+   "code": "PM-03",
+   "name": "變更設計及追加減預算審查報告",
+   "purpose": "PCM 審查變更設計理由、數量與單價之合理性。",
+   "filledBy": "PCM（專案管理）；依契約頻率或事件提送。",
+   "sections": [
+    {
+     "anchor": "目的與範圍",
+     "intent": "以本專案名稱、審查標的與期間改寫目的與範圍。",
+     "drivers": [
+      "a.name",
+      "a.client",
+      "a.location",
+      "a.type",
+      "parties",
+      "a.lap"
+     ],
+     "must": [
+      "審查標的",
+      "審查期間（未提供時〔待確認〕）"
+     ],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "發現事項及處理",
+     "intent": "依紀錄彙整發現事項（現況→影響→要求行動），每項指定負責單位與期限。",
+     "drivers": [
+      "reviews"
+     ],
+     "must": [
+      "只寫紀錄中存在之事項；無紀錄時寫〔待確認〕並保留空白表"
+     ],
+     "avoid": [
+      "自行編造發現事項或數量"
+     ],
+     "write": true
+    },
+    {
+     "anchor": "結論與建議",
+     "intent": "依發現事項之件數與嚴重度寫結論與建議，未結事項列追蹤。",
+     "drivers": [
+      "reviews"
+     ],
+     "must": [
+      "結論與發現事項一致"
+     ],
+     "avoid": [
+      "在沒有發現事項時寫「符合」"
+     ],
+     "write": true
+    }
+   ],
+   "rewrite": {
+    "force": [],
+    "keep": []
+   },
+   "variants": [],
+   "hooks": [
+    "reviews"
+   ],
+   "notes": [
+    "非 BIM 專屬文件；用語依 PCM／監造角色撰寫。"
+   ]
+  },
+  "PM-04": {
+   "code": "PM-04",
+   "name": "跨專業介面整合及施工可行性審查報告",
+   "purpose": "PCM 審查跨專業介面衝突與施工可行性。",
+   "filledBy": "PCM（專案管理）；依契約頻率或事件提送。",
+   "sections": [
+    {
+     "anchor": "目的與範圍",
+     "intent": "以本專案名稱、審查標的與期間改寫目的與範圍。",
+     "drivers": [
+      "a.name",
+      "a.client",
+      "a.location",
+      "a.type",
+      "parties",
+      "a.lap"
+     ],
+     "must": [
+      "審查標的",
+      "審查期間（未提供時〔待確認〕）"
+     ],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "發現事項及處理",
+     "intent": "依紀錄彙整發現事項（現況→影響→要求行動），每項指定負責單位與期限。",
+     "drivers": [
+      "clashes",
+      "rfis"
+     ],
+     "must": [
+      "只寫紀錄中存在之事項；無紀錄時寫〔待確認〕並保留空白表"
+     ],
+     "avoid": [
+      "自行編造發現事項或數量"
+     ],
+     "write": true
+    },
+    {
+     "anchor": "結論與建議",
+     "intent": "依發現事項之件數與嚴重度寫結論與建議，未結事項列追蹤。",
+     "drivers": [
+      "clashes",
+      "rfis"
+     ],
+     "must": [
+      "結論與發現事項一致"
+     ],
+     "avoid": [
+      "在沒有發現事項時寫「符合」"
+     ],
+     "write": true
+    }
+   ],
+   "rewrite": {
+    "force": [],
+    "keep": []
+   },
+   "variants": [],
+   "hooks": [
+    "clashes",
+    "rfis"
+   ],
+   "notes": [
+    "非 BIM 專屬文件；用語依 PCM／監造角色撰寫。"
+   ]
+  },
+  "PM-05": {
+   "code": "PM-05",
+   "name": "BIM 成果審查及模型／圖說一致性檢核報告",
+   "purpose": "PCM 審查 BIM 成果是否符合 EIR／BEP，並抽查模型與圖說一致性。",
+   "filledBy": "PCM（專案管理）；依契約頻率或事件提送。",
+   "sections": [
+    {
+     "anchor": "目的與範圍",
+     "intent": "以本專案名稱、審查標的與期間改寫目的與範圍。",
+     "drivers": [
+      "a.name",
+      "a.client",
+      "a.location",
+      "a.type",
+      "parties",
+      "a.lap"
+     ],
+     "must": [
+      "審查標的",
+      "審查期間（未提供時〔待確認〕）"
+     ],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "發現事項及處理",
+     "intent": "依紀錄彙整發現事項（現況→影響→要求行動），每項指定負責單位與期限。",
+     "drivers": [
+      "clashes",
+      "models",
+      "reviews",
+      "ruleRun"
+     ],
+     "must": [
+      "只寫紀錄中存在之事項；無紀錄時寫〔待確認〕並保留空白表"
+     ],
+     "avoid": [
+      "自行編造發現事項或數量"
+     ],
+     "write": true
+    },
+    {
+     "anchor": "結論與建議",
+     "intent": "依發現事項之件數與嚴重度寫結論與建議，未結事項列追蹤。",
+     "drivers": [
+      "clashes",
+      "models",
+      "reviews",
+      "ruleRun"
+     ],
+     "must": [
+      "結論與發現事項一致"
+     ],
+     "avoid": [
+      "在沒有發現事項時寫「符合」"
+     ],
+     "write": true
+    }
+   ],
+   "rewrite": {
+    "force": [],
+    "keep": []
+   },
+   "variants": [],
+   "hooks": [
+    "clashes",
+    "models",
+    "reviews",
+    "ruleRun"
+   ],
+   "notes": [
+    "非 BIM 專屬文件；用語依 PCM／監造角色撰寫。"
+   ]
+  },
+  "PM-06": {
+   "code": "PM-06",
+   "name": "施工估驗計價複核報告",
+   "purpose": "PCM 複核估驗數量與計價。",
+   "filledBy": "PCM（專案管理）；依契約頻率或事件提送。",
+   "sections": [
+    {
+     "anchor": "目的與範圍",
+     "intent": "以本專案名稱、審查標的與期間改寫目的與範圍。",
+     "drivers": [
+      "a.name",
+      "a.client",
+      "a.location",
+      "a.type",
+      "parties",
+      "a.lap"
+     ],
+     "must": [
+      "審查標的",
+      "審查期間（未提供時〔待確認〕）"
+     ],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "發現事項及處理",
+     "intent": "依紀錄彙整發現事項（現況→影響→要求行動），每項指定負責單位與期限。",
+     "drivers": [],
+     "must": [
+      "只寫紀錄中存在之事項；無紀錄時寫〔待確認〕並保留空白表"
+     ],
+     "avoid": [
+      "自行編造發現事項或數量"
+     ],
+     "write": true
+    },
+    {
+     "anchor": "結論與建議",
+     "intent": "依發現事項之件數與嚴重度寫結論與建議，未結事項列追蹤。",
+     "drivers": [],
+     "must": [
+      "結論與發現事項一致"
+     ],
+     "avoid": [
+      "在沒有發現事項時寫「符合」"
+     ],
+     "write": true
+    }
+   ],
+   "rewrite": {
+    "force": [],
+    "keep": []
+   },
+   "variants": [],
+   "hooks": [],
+   "notes": [
+    "非 BIM 專屬文件；用語依 PCM／監造角色撰寫。"
+   ]
+  },
+  "PM-07": {
+   "code": "PM-07",
+   "name": "品質督導及監造執行查核報告",
+   "purpose": "PCM 查核監造單位品管執行。",
+   "filledBy": "PCM（專案管理）；依契約頻率或事件提送。",
+   "sections": [
+    {
+     "anchor": "目的與範圍",
+     "intent": "以本專案名稱、審查標的與期間改寫目的與範圍。",
+     "drivers": [
+      "a.name",
+      "a.client",
+      "a.location",
+      "a.type",
+      "parties",
+      "a.lap"
+     ],
+     "must": [
+      "審查標的",
+      "審查期間（未提供時〔待確認〕）"
+     ],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "發現事項及處理",
+     "intent": "依紀錄彙整發現事項（現況→影響→要求行動），每項指定負責單位與期限。",
+     "drivers": [],
+     "must": [
+      "只寫紀錄中存在之事項；無紀錄時寫〔待確認〕並保留空白表"
+     ],
+     "avoid": [
+      "自行編造發現事項或數量"
+     ],
+     "write": true
+    },
+    {
+     "anchor": "結論與建議",
+     "intent": "依發現事項之件數與嚴重度寫結論與建議，未結事項列追蹤。",
+     "drivers": [],
+     "must": [
+      "結論與發現事項一致"
+     ],
+     "avoid": [
+      "在沒有發現事項時寫「符合」"
+     ],
+     "write": true
+    }
+   ],
+   "rewrite": {
+    "force": [],
+    "keep": []
+   },
+   "variants": [],
+   "hooks": [],
+   "notes": [
+    "非 BIM 專屬文件；用語依 PCM／監造角色撰寫。"
+   ]
+  },
+  "PM-08": {
+   "code": "PM-08",
+   "name": "施工計畫、品質計畫及重要送審文件複核意見表",
+   "purpose": "PCM 複核重要送審文件。",
+   "filledBy": "PCM（專案管理）；依契約頻率或事件提送。",
+   "sections": [
+    {
+     "anchor": "目的與範圍",
+     "intent": "以本專案名稱、審查標的與期間改寫目的與範圍。",
+     "drivers": [
+      "a.name",
+      "a.client",
+      "a.location",
+      "a.type",
+      "parties",
+      "a.lap"
+     ],
+     "must": [
+      "審查標的",
+      "審查期間（未提供時〔待確認〕）"
+     ],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "發現事項及處理",
+     "intent": "依紀錄彙整發現事項（現況→影響→要求行動），每項指定負責單位與期限。",
+     "drivers": [
+      "reviews"
+     ],
+     "must": [
+      "只寫紀錄中存在之事項；無紀錄時寫〔待確認〕並保留空白表"
+     ],
+     "avoid": [
+      "自行編造發現事項或數量"
+     ],
+     "write": true
+    },
+    {
+     "anchor": "結論與建議",
+     "intent": "依發現事項之件數與嚴重度寫結論與建議，未結事項列追蹤。",
+     "drivers": [
+      "reviews"
+     ],
+     "must": [
+      "結論與發現事項一致"
+     ],
+     "avoid": [
+      "在沒有發現事項時寫「符合」"
+     ],
+     "write": true
+    }
+   ],
+   "rewrite": {
+    "force": [],
+    "keep": []
+   },
+   "variants": [],
+   "hooks": [
+    "reviews"
+   ],
+   "notes": [
+    "非 BIM 專屬文件；用語依 PCM／監造角色撰寫。"
+   ]
+  },
+  "PM-09": {
+   "code": "PM-09",
+   "name": "竣工、結算及移交文件完整性審查報告",
+   "purpose": "PCM 審查竣工、結算、移交文件完整性。",
+   "filledBy": "PCM（專案管理）；依契約頻率或事件提送。",
+   "sections": [
+    {
+     "anchor": "目的與範圍",
+     "intent": "以本專案名稱、審查標的與期間改寫目的與範圍。",
+     "drivers": [
+      "a.name",
+      "a.client",
+      "a.location",
+      "a.type",
+      "parties",
+      "a.lap"
+     ],
+     "must": [
+      "審查標的",
+      "審查期間（未提供時〔待確認〕）"
+     ],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "發現事項及處理",
+     "intent": "依紀錄彙整發現事項（現況→影響→要求行動），每項指定負責單位與期限。",
+     "drivers": [
+      "models",
+      "reviews"
+     ],
+     "must": [
+      "只寫紀錄中存在之事項；無紀錄時寫〔待確認〕並保留空白表"
+     ],
+     "avoid": [
+      "自行編造發現事項或數量"
+     ],
+     "write": true
+    },
+    {
+     "anchor": "結論與建議",
+     "intent": "依發現事項之件數與嚴重度寫結論與建議，未結事項列追蹤。",
+     "drivers": [
+      "models",
+      "reviews"
+     ],
+     "must": [
+      "結論與發現事項一致"
+     ],
+     "avoid": [
+      "在沒有發現事項時寫「符合」"
+     ],
+     "write": true
+    }
+   ],
+   "rewrite": {
+    "force": [],
+    "keep": []
+   },
+   "variants": [],
+   "hooks": [
+    "models",
+    "reviews"
+   ],
+   "notes": [
+    "非 BIM 專屬文件；用語依 PCM／監造角色撰寫。"
+   ]
+  },
+  "PM-10": {
+   "code": "PM-10",
+   "name": "PCM 月報及業主決策簡報",
+   "purpose": "PCM 每月彙整進度、品質、送審、議題及待業主決策事項。",
+   "filledBy": "PCM（專案管理）；依契約頻率或事件提送。",
+   "sections": [
+    {
+     "anchor": "目的與範圍",
+     "intent": "以本專案名稱、審查標的與期間改寫目的與範圍。",
+     "drivers": [
+      "a.name",
+      "a.client",
+      "a.location",
+      "a.type",
+      "parties",
+      "a.lap"
+     ],
+     "must": [
+      "審查標的",
+      "審查期間（未提供時〔待確認〕）"
+     ],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "發現事項及處理",
+     "intent": "依紀錄彙整發現事項（現況→影響→要求行動），每項指定負責單位與期限。",
+     "drivers": [
+      "reviews",
+      "rfis",
+      "clashes",
+      "meetings"
+     ],
+     "must": [
+      "只寫紀錄中存在之事項；無紀錄時寫〔待確認〕並保留空白表"
+     ],
+     "avoid": [
+      "自行編造發現事項或數量"
+     ],
+     "write": true
+    },
+    {
+     "anchor": "結論與建議",
+     "intent": "依發現事項之件數與嚴重度寫結論與建議，未結事項列追蹤。",
+     "drivers": [
+      "reviews",
+      "rfis",
+      "clashes",
+      "meetings"
+     ],
+     "must": [
+      "結論與發現事項一致"
+     ],
+     "avoid": [
+      "在沒有發現事項時寫「符合」"
+     ],
+     "write": true
+    }
+   ],
+   "rewrite": {
+    "force": [],
+    "keep": []
+   },
+   "variants": [],
+   "hooks": [
+    "reviews",
+    "rfis",
+    "clashes",
+    "meetings"
+   ],
+   "notes": [
+    "非 BIM 專屬文件；用語依 PCM／監造角色撰寫。"
+   ]
+  },
+  "SV-01": {
+   "code": "SV-01",
+   "name": "施工計畫及品質計畫審查意見表",
+   "purpose": "監造審查施工計畫與品質計畫。",
+   "filledBy": "監造單位；依契約頻率或事件提送。",
+   "sections": [
+    {
+     "anchor": "目的與範圍",
+     "intent": "以本專案名稱、審查標的與期間改寫目的與範圍。",
+     "drivers": [
+      "a.name",
+      "a.client",
+      "a.location",
+      "a.type",
+      "parties",
+      "a.lap"
+     ],
+     "must": [
+      "審查標的",
+      "審查期間（未提供時〔待確認〕）"
+     ],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "發現事項及處理",
+     "intent": "依紀錄彙整發現事項（現況→影響→要求行動），每項指定負責單位與期限。",
+     "drivers": [
+      "reviews"
+     ],
+     "must": [
+      "只寫紀錄中存在之事項；無紀錄時寫〔待確認〕並保留空白表"
+     ],
+     "avoid": [
+      "自行編造發現事項或數量"
+     ],
+     "write": true
+    },
+    {
+     "anchor": "結論與建議",
+     "intent": "依發現事項之件數與嚴重度寫結論與建議，未結事項列追蹤。",
+     "drivers": [
+      "reviews"
+     ],
+     "must": [
+      "結論與發現事項一致"
+     ],
+     "avoid": [
+      "在沒有發現事項時寫「符合」"
+     ],
+     "write": true
+    }
+   ],
+   "rewrite": {
+    "force": [],
+    "keep": []
+   },
+   "variants": [],
+   "hooks": [
+    "reviews"
+   ],
+   "notes": [
+    "非 BIM 專屬文件；用語依 PCM／監造角色撰寫。"
+   ]
+  },
+  "SV-02": {
+   "code": "SV-02",
+   "name": "材料設備送審文件審查表",
+   "purpose": "監造審查材料設備送審。",
+   "filledBy": "監造單位；依契約頻率或事件提送。",
+   "sections": [
+    {
+     "anchor": "目的與範圍",
+     "intent": "以本專案名稱、審查標的與期間改寫目的與範圍。",
+     "drivers": [
+      "a.name",
+      "a.client",
+      "a.location",
+      "a.type",
+      "parties",
+      "a.lap"
+     ],
+     "must": [
+      "審查標的",
+      "審查期間（未提供時〔待確認〕）"
+     ],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "發現事項及處理",
+     "intent": "依紀錄彙整發現事項（現況→影響→要求行動），每項指定負責單位與期限。",
+     "drivers": [
+      "reviews"
+     ],
+     "must": [
+      "只寫紀錄中存在之事項；無紀錄時寫〔待確認〕並保留空白表"
+     ],
+     "avoid": [
+      "自行編造發現事項或數量"
+     ],
+     "write": true
+    },
+    {
+     "anchor": "結論與建議",
+     "intent": "依發現事項之件數與嚴重度寫結論與建議，未結事項列追蹤。",
+     "drivers": [
+      "reviews"
+     ],
+     "must": [
+      "結論與發現事項一致"
+     ],
+     "avoid": [
+      "在沒有發現事項時寫「符合」"
+     ],
+     "write": true
+    }
+   ],
+   "rewrite": {
+    "force": [],
+    "keep": []
+   },
+   "variants": [],
+   "hooks": [
+    "reviews"
+   ],
+   "notes": [
+    "非 BIM 專屬文件；用語依 PCM／監造角色撰寫。"
+   ]
+  },
+  "SV-03": {
+   "code": "SV-03",
+   "name": "施工圖審查及圖說疑義彙整報告",
+   "purpose": "監造審查施工圖並彙整圖說疑義（RFI）。",
+   "filledBy": "監造單位；依契約頻率或事件提送。",
+   "sections": [
+    {
+     "anchor": "目的與範圍",
+     "intent": "以本專案名稱、審查標的與期間改寫目的與範圍。",
+     "drivers": [
+      "a.name",
+      "a.client",
+      "a.location",
+      "a.type",
+      "parties",
+      "a.lap"
+     ],
+     "must": [
+      "審查標的",
+      "審查期間（未提供時〔待確認〕）"
+     ],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "發現事項及處理",
+     "intent": "依紀錄彙整發現事項（現況→影響→要求行動），每項指定負責單位與期限。",
+     "drivers": [
+      "rfis",
+      "reviews"
+     ],
+     "must": [
+      "只寫紀錄中存在之事項；無紀錄時寫〔待確認〕並保留空白表"
+     ],
+     "avoid": [
+      "自行編造發現事項或數量"
+     ],
+     "write": true
+    },
+    {
+     "anchor": "結論與建議",
+     "intent": "依發現事項之件數與嚴重度寫結論與建議，未結事項列追蹤。",
+     "drivers": [
+      "rfis",
+      "reviews"
+     ],
+     "must": [
+      "結論與發現事項一致"
+     ],
+     "avoid": [
+      "在沒有發現事項時寫「符合」"
+     ],
+     "write": true
+    }
+   ],
+   "rewrite": {
+    "force": [],
+    "keep": []
+   },
+   "variants": [],
+   "hooks": [
+    "rfis",
+    "reviews"
+   ],
+   "notes": [
+    "非 BIM 專屬文件；用語依 PCM／監造角色撰寫。"
+   ]
+  },
+  "SV-04": {
+   "code": "SV-04",
+   "name": "工程查核準備資料及缺失改善成果報告",
+   "purpose": "監造彙整查核準備與缺失改善。",
+   "filledBy": "監造單位；依契約頻率或事件提送。",
+   "sections": [
+    {
+     "anchor": "目的與範圍",
+     "intent": "以本專案名稱、審查標的與期間改寫目的與範圍。",
+     "drivers": [
+      "a.name",
+      "a.client",
+      "a.location",
+      "a.type",
+      "parties",
+      "a.lap"
+     ],
+     "must": [
+      "審查標的",
+      "審查期間（未提供時〔待確認〕）"
+     ],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "發現事項及處理",
+     "intent": "依紀錄彙整發現事項（現況→影響→要求行動），每項指定負責單位與期限。",
+     "drivers": [],
+     "must": [
+      "只寫紀錄中存在之事項；無紀錄時寫〔待確認〕並保留空白表"
+     ],
+     "avoid": [
+      "自行編造發現事項或數量"
+     ],
+     "write": true
+    },
+    {
+     "anchor": "結論與建議",
+     "intent": "依發現事項之件數與嚴重度寫結論與建議，未結事項列追蹤。",
+     "drivers": [],
+     "must": [
+      "結論與發現事項一致"
+     ],
+     "avoid": [
+      "在沒有發現事項時寫「符合」"
+     ],
+     "write": true
+    }
+   ],
+   "rewrite": {
+    "force": [],
+    "keep": []
+   },
+   "variants": [],
+   "hooks": [],
+   "notes": [
+    "非 BIM 專屬文件；用語依 PCM／監造角色撰寫。"
+   ]
+  },
+  "SV-05": {
+   "code": "SV-05",
+   "name": "材料設備抽驗及試驗結果彙整分析報告",
+   "purpose": "監造彙整抽驗與試驗結果。",
+   "filledBy": "監造單位；依契約頻率或事件提送。",
+   "sections": [
+    {
+     "anchor": "目的與範圍",
+     "intent": "以本專案名稱、審查標的與期間改寫目的與範圍。",
+     "drivers": [
+      "a.name",
+      "a.client",
+      "a.location",
+      "a.type",
+      "parties",
+      "a.lap"
+     ],
+     "must": [
+      "審查標的",
+      "審查期間（未提供時〔待確認〕）"
+     ],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "發現事項及處理",
+     "intent": "依紀錄彙整發現事項（現況→影響→要求行動），每項指定負責單位與期限。",
+     "drivers": [],
+     "must": [
+      "只寫紀錄中存在之事項；無紀錄時寫〔待確認〕並保留空白表"
+     ],
+     "avoid": [
+      "自行編造發現事項或數量"
+     ],
+     "write": true
+    },
+    {
+     "anchor": "結論與建議",
+     "intent": "依發現事項之件數與嚴重度寫結論與建議，未結事項列追蹤。",
+     "drivers": [],
+     "must": [
+      "結論與發現事項一致"
+     ],
+     "avoid": [
+      "在沒有發現事項時寫「符合」"
+     ],
+     "write": true
+    }
+   ],
+   "rewrite": {
+    "force": [],
+    "keep": []
+   },
+   "variants": [],
+   "hooks": [],
+   "notes": [
+    "非 BIM 專屬文件；用語依 PCM／監造角色撰寫。"
+   ]
+  },
+  "SV-06": {
+   "code": "SV-06",
+   "name": "施工抽查紀錄及品質缺失追蹤報告",
+   "purpose": "監造抽查與缺失追蹤。",
+   "filledBy": "監造單位；依契約頻率或事件提送。",
+   "sections": [
+    {
+     "anchor": "目的與範圍",
+     "intent": "以本專案名稱、審查標的與期間改寫目的與範圍。",
+     "drivers": [
+      "a.name",
+      "a.client",
+      "a.location",
+      "a.type",
+      "parties",
+      "a.lap"
+     ],
+     "must": [
+      "審查標的",
+      "審查期間（未提供時〔待確認〕）"
+     ],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "發現事項及處理",
+     "intent": "依紀錄彙整發現事項（現況→影響→要求行動），每項指定負責單位與期限。",
+     "drivers": [],
+     "must": [
+      "只寫紀錄中存在之事項；無紀錄時寫〔待確認〕並保留空白表"
+     ],
+     "avoid": [
+      "自行編造發現事項或數量"
+     ],
+     "write": true
+    },
+    {
+     "anchor": "結論與建議",
+     "intent": "依發現事項之件數與嚴重度寫結論與建議，未結事項列追蹤。",
+     "drivers": [],
+     "must": [
+      "結論與發現事項一致"
+     ],
+     "avoid": [
+      "在沒有發現事項時寫「符合」"
+     ],
+     "write": true
+    }
+   ],
+   "rewrite": {
+    "force": [],
+    "keep": []
+   },
+   "variants": [],
+   "hooks": [],
+   "notes": [
+    "非 BIM 專屬文件；用語依 PCM／監造角色撰寫。"
+   ]
+  },
+  "SV-07": {
+   "code": "SV-07",
+   "name": "估驗計價數量查核表及佐證資料",
+   "purpose": "監造查核估驗數量。",
+   "filledBy": "監造單位；依契約頻率或事件提送。",
+   "sections": [
+    {
+     "anchor": "目的與範圍",
+     "intent": "以本專案名稱、審查標的與期間改寫目的與範圍。",
+     "drivers": [
+      "a.name",
+      "a.client",
+      "a.location",
+      "a.type",
+      "parties",
+      "a.lap"
+     ],
+     "must": [
+      "審查標的",
+      "審查期間（未提供時〔待確認〕）"
+     ],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "發現事項及處理",
+     "intent": "依紀錄彙整發現事項（現況→影響→要求行動），每項指定負責單位與期限。",
+     "drivers": [],
+     "must": [
+      "只寫紀錄中存在之事項；無紀錄時寫〔待確認〕並保留空白表"
+     ],
+     "avoid": [
+      "自行編造發現事項或數量"
+     ],
+     "write": true
+    },
+    {
+     "anchor": "結論與建議",
+     "intent": "依發現事項之件數與嚴重度寫結論與建議，未結事項列追蹤。",
+     "drivers": [],
+     "must": [
+      "結論與發現事項一致"
+     ],
+     "avoid": [
+      "在沒有發現事項時寫「符合」"
+     ],
+     "write": true
+    }
+   ],
+   "rewrite": {
+    "force": [],
+    "keep": []
+   },
+   "variants": [],
+   "hooks": [],
+   "notes": [
+    "非 BIM 專屬文件；用語依 PCM／監造角色撰寫。"
+   ]
+  },
+  "SV-08": {
+   "code": "SV-08",
+   "name": "變更設計圖說及追加減數量查核報告",
+   "purpose": "監造查核變更設計與數量。",
+   "filledBy": "監造單位；依契約頻率或事件提送。",
+   "sections": [
+    {
+     "anchor": "目的與範圍",
+     "intent": "以本專案名稱、審查標的與期間改寫目的與範圍。",
+     "drivers": [
+      "a.name",
+      "a.client",
+      "a.location",
+      "a.type",
+      "parties",
+      "a.lap"
+     ],
+     "must": [
+      "審查標的",
+      "審查期間（未提供時〔待確認〕）"
+     ],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "發現事項及處理",
+     "intent": "依紀錄彙整發現事項（現況→影響→要求行動），每項指定負責單位與期限。",
+     "drivers": [
+      "reviews"
+     ],
+     "must": [
+      "只寫紀錄中存在之事項；無紀錄時寫〔待確認〕並保留空白表"
+     ],
+     "avoid": [
+      "自行編造發現事項或數量"
+     ],
+     "write": true
+    },
+    {
+     "anchor": "結論與建議",
+     "intent": "依發現事項之件數與嚴重度寫結論與建議，未結事項列追蹤。",
+     "drivers": [
+      "reviews"
+     ],
+     "must": [
+      "結論與發現事項一致"
+     ],
+     "avoid": [
+      "在沒有發現事項時寫「符合」"
+     ],
+     "write": true
+    }
+   ],
+   "rewrite": {
+    "force": [],
+    "keep": []
+   },
+   "variants": [],
+   "hooks": [
+    "reviews"
+   ],
+   "notes": [
+    "非 BIM 專屬文件；用語依 PCM／監造角色撰寫。"
+   ]
+  },
+  "SV-09": {
+   "code": "SV-09",
+   "name": "機電設備功能運轉測試及試運轉查驗報告",
+   "purpose": "監造查驗機電功能測試與試運轉。",
+   "filledBy": "監造單位；依契約頻率或事件提送。",
+   "sections": [
+    {
+     "anchor": "目的與範圍",
+     "intent": "以本專案名稱、審查標的與期間改寫目的與範圍。",
+     "drivers": [
+      "a.name",
+      "a.client",
+      "a.location",
+      "a.type",
+      "parties",
+      "a.lap"
+     ],
+     "must": [
+      "審查標的",
+      "審查期間（未提供時〔待確認〕）"
+     ],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "發現事項及處理",
+     "intent": "依紀錄彙整發現事項（現況→影響→要求行動），每項指定負責單位與期限。",
+     "drivers": [],
+     "must": [
+      "只寫紀錄中存在之事項；無紀錄時寫〔待確認〕並保留空白表"
+     ],
+     "avoid": [
+      "自行編造發現事項或數量"
+     ],
+     "write": true
+    },
+    {
+     "anchor": "結論與建議",
+     "intent": "依發現事項之件數與嚴重度寫結論與建議，未結事項列追蹤。",
+     "drivers": [],
+     "must": [
+      "結論與發現事項一致"
+     ],
+     "avoid": [
+      "在沒有發現事項時寫「符合」"
+     ],
+     "write": true
+    }
+   ],
+   "rewrite": {
+    "force": [],
+    "keep": []
+   },
+   "variants": [],
+   "hooks": [],
+   "notes": [
+    "非 BIM 專屬文件；用語依 PCM／監造角色撰寫。"
+   ]
+  },
+  "SV-10": {
+   "code": "SV-10",
+   "name": "竣工圖、結算及驗收文件審查報告",
+   "purpose": "監造審查竣工圖、結算與驗收文件。",
+   "filledBy": "監造單位；依契約頻率或事件提送。",
+   "sections": [
+    {
+     "anchor": "目的與範圍",
+     "intent": "以本專案名稱、審查標的與期間改寫目的與範圍。",
+     "drivers": [
+      "a.name",
+      "a.client",
+      "a.location",
+      "a.type",
+      "parties",
+      "a.lap"
+     ],
+     "must": [
+      "審查標的",
+      "審查期間（未提供時〔待確認〕）"
+     ],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "發現事項及處理",
+     "intent": "依紀錄彙整發現事項（現況→影響→要求行動），每項指定負責單位與期限。",
+     "drivers": [
+      "models"
+     ],
+     "must": [
+      "只寫紀錄中存在之事項；無紀錄時寫〔待確認〕並保留空白表"
+     ],
+     "avoid": [
+      "自行編造發現事項或數量"
+     ],
+     "write": true
+    },
+    {
+     "anchor": "結論與建議",
+     "intent": "依發現事項之件數與嚴重度寫結論與建議，未結事項列追蹤。",
+     "drivers": [
+      "models"
+     ],
+     "must": [
+      "結論與發現事項一致"
+     ],
+     "avoid": [
+      "在沒有發現事項時寫「符合」"
+     ],
+     "write": true
+    }
+   ],
+   "rewrite": {
+    "force": [],
+    "keep": []
+   },
+   "variants": [],
+   "hooks": [
+    "models"
+   ],
+   "notes": [
+    "非 BIM 專屬文件；用語依 PCM／監造角色撰寫。"
+   ]
+  },
+  "SV-11": {
+   "code": "SV-11",
+   "name": "監造月報及品質管理統計報告",
+   "purpose": "監造每月彙整施工進度、品質統計與缺失。",
+   "filledBy": "監造單位；依契約頻率或事件提送。",
+   "sections": [
+    {
+     "anchor": "目的與範圍",
+     "intent": "以本專案名稱、審查標的與期間改寫目的與範圍。",
+     "drivers": [
+      "a.name",
+      "a.client",
+      "a.location",
+      "a.type",
+      "parties",
+      "a.lap"
+     ],
+     "must": [
+      "審查標的",
+      "審查期間（未提供時〔待確認〕）"
+     ],
+     "avoid": [],
+     "write": false
+    },
+    {
+     "anchor": "發現事項及處理",
+     "intent": "依紀錄彙整發現事項（現況→影響→要求行動），每項指定負責單位與期限。",
+     "drivers": [
+      "rfis",
+      "reviews",
+      "meetings"
+     ],
+     "must": [
+      "只寫紀錄中存在之事項；無紀錄時寫〔待確認〕並保留空白表"
+     ],
+     "avoid": [
+      "自行編造發現事項或數量"
+     ],
+     "write": true
+    },
+    {
+     "anchor": "結論與建議",
+     "intent": "依發現事項之件數與嚴重度寫結論與建議，未結事項列追蹤。",
+     "drivers": [
+      "rfis",
+      "reviews",
+      "meetings"
+     ],
+     "must": [
+      "結論與發現事項一致"
+     ],
+     "avoid": [
+      "在沒有發現事項時寫「符合」"
+     ],
+     "write": true
+    }
+   ],
+   "rewrite": {
+    "force": [],
+    "keep": []
+   },
+   "variants": [],
+   "hooks": [
+    "rfis",
+    "reviews",
+    "meetings"
+   ],
+   "notes": [
+    "非 BIM 專屬文件；用語依 PCM／監造角色撰寫。"
+   ]
+  }
+ }
+}

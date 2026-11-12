@@ -1,0 +1,17 @@
+/* AEC PRISM · BEP & EIR Studio — optional template SV-11 監造月報及品質管理統計報告 · Monthly supervision report and quality statistics
+   Construction supervision (監造) document. Separate file, loaded only when a project uses it. */
+PRISM_TPL.add("SV-11", { spec(X) {
+  let { code, p, lang, zh, a, sector, TT, std, C, pt, cv, Z, bx, TBD, v, t, title, sub, owner, subKey, subName, st, stN, team, discs, discN, midp, train, trTot, lodOf, reqs, subRev, rev, today, swList, cde, crs, naming, namingFields, namingEx, hard, tol, usesL, blank, num, signPub, signForm, S, sec, T_, statusOpts, okCols } = X;
+  switch (0) { default: {
+      S.kind = "report";
+      const name = v(a.name), client = v(a.client);
+      sec(Z("一、目的與範圍", "1 Purpose and scope"), { p: [Z(`本報告就「${name}」彙整當月監造執行情形、進度、品質抽查、缺失統計及安衛事項，提報業主及機關。`, `For ${name}: Report the month's supervision activities, progress, inspections, defect statistics and safety matters to the owner.`)], t: [T_([Z("項目", "Item"), Z("內容", "Detail")], [28, 72], [[Z("工程名稱", "Project"), name], [Z("業主／主辦機關", "Client"), client], [Z("報告期間", "Reporting period"), ""], [Z("報告日期", "Report date"), today || ""], [Z("撰寫人", "Prepared by"), ""]])] });
+      sec(Z("二、依據及資料", "2 Basis and source data"), { t: [T_([Z("資料名稱", "Document"), Z("版次／日期", "Rev. / date"), Z("收到", "Received")], [56, 26, 18], [[Z("監造日報", "Daily supervision reports"), "", "□"], [Z("施工抽查及材料抽驗紀錄", "Inspection and sampling records"), "", "□"], [Z("品質缺失追蹤表", "Defect tracking log"), "", "□"], [Z("進度及估驗資料", "Progress and payment data"), "", "□"]])] });
+      sec(Z("三、報告編製檢核", "3 Report preparation checks"), { t: [T_([Z("項次", "No."), Z("查核項目", "Check"), Z("結果", "Result"), Z("說明", "Notes")], [8, 47, 18, 27], [["1", Z("監造日報彙整完整", "Daily reports consolidated"), Z("□符合 □不符", "□ OK □ Not OK"), ""], ["2", Z("進度數據與估驗一致", "Progress agrees with payments"), Z("□符合 □不符", "□ OK □ Not OK"), ""], ["3", Z("抽查及抽驗次數統計正確", "Inspection and sampling counts correct"), Z("□符合 □不符", "□ OK □ Not OK"), ""], ["4", Z("缺失統計含趨勢分析", "Defect statistics include trends"), Z("□符合 □不符", "□ OK □ Not OK"), ""], ["5", Z("安衛及環保事項已彙報", "Safety and environment reported"), Z("□符合 □不符", "□ OK □ Not OK"), ""], ["6", Z("待業主決定事項已列明", "Owner decisions listed"), Z("□符合 □不符", "□ OK □ Not OK"), ""]])] });
+      sec(Z("四、本月重點指標", "4 Key figures this month"), { t: [T_([Z("指標", "Indicator"), Z("預定", "Plan"), Z("實際", "Actual"), Z("狀態", "Status")], [40, 20, 20, 20], [[Z("累計進度 %", "Cumulative progress %"), "", "", ""], [Z("預算執行率 %", "Budget spent %"), "", "", ""], [Z("品質缺失（未結案）", "Open defects"), "", "", ""], [Z("重大風險數", "Major risks"), "", "", ""], [Z("待業主決策事項", "Decisions needed"), "", "", ""]])] });
+      sec(Z("五、發現事項及處理", "5 Findings and actions"), { t: [T_([Z("項目", "Item"), Z("本月", "This month"), Z("累計", "Cumulative"), Z("說明", "Notes"), Z("趨勢", "Trend"), Z("建議", "Recommendation")], [17, 17, 17, 17, 17, 17], blank(6, 6))] });
+      sec(Z("六、結論與建議", "6 Conclusion and recommendations"), { list: [Z("本月結論：□ 依計畫執行　□ 輕微落後，已採改善措施　□ 重大落後或異常，請業主決策（詳第五節）。", "This month: □ On plan □ Slightly behind, recovery in place □ Seriously behind or abnormal; owner decision needed (see section 5)."), Z("下月工作重點：〔填寫〕", "Next month: [fill in]"), Z("前月決議事項之辦理情形已列於發現事項。", "Follow-up on last month's decisions is listed under findings."), Z("本報告依各單位所提供資料編製；資料不足部分已註明。", "This report is compiled from the data provided; gaps are noted.")] });
+      S.sign = [Z("監造人員", "Supervision engineer"), Z("監造主任", "Chief supervisor"), Z(TT.owner || "業主", "Client")];
+      break;
+  } }
+} });

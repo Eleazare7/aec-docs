@@ -1,0 +1,16 @@
+/* AEC PRISM · BEP & EIR Studio — optional template PM-01 設計圖說、規範及預算一致性審查報告 · Drawings, specifications and budget consistency review
+   PCM (project management consultant) document. Separate file, loaded only when a project uses it. */
+PRISM_TPL.add("PM-01", { spec(X) {
+  let { code, p, lang, zh, a, sector, TT, std, C, pt, cv, Z, bx, TBD, v, t, title, sub, owner, subKey, subName, st, stN, team, discs, discN, midp, train, trTot, lodOf, reqs, subRev, rev, today, swList, cde, crs, naming, namingFields, namingEx, hard, tol, usesL, blank, num, signPub, signForm, S, sec, T_, statusOpts, okCols } = X;
+  switch (0) { default: {
+      S.kind = "report";
+      const name = v(a.name), client = v(a.client);
+      sec(Z("一、目的與範圍", "1 Purpose and scope"), { p: [Z(`本報告就「${name}」交叉比對設計圖說、施工規範及預算書（詳細價目表），找出漏列、重複及相互矛盾之處，並提出修正建議。`, `For ${name}: Cross-check drawings, specifications and the bill of quantities to find omissions, duplicates and contradictions, and recommend corrections.`)], t: [T_([Z("項目", "Item"), Z("內容", "Detail")], [28, 72], [[Z("工程名稱", "Project"), name], [Z("業主／主辦機關", "Client"), client], [Z("審查期間", "Review period"), ""], [Z("報告日期", "Report date"), today || ""], [Z("審查人", "Reviewer"), ""]])] });
+      sec(Z("二、審查依據及資料", "2 Basis and documents reviewed"), { t: [T_([Z("資料名稱", "Document"), Z("版次／日期", "Rev. / date"), Z("收到", "Received")], [56, 26, 18], [[Z("設計圖說（含各專業圖號清冊）", "Drawings and drawing register"), "", "□"], [Z("施工規範／特訂條款", "Specifications and special conditions"), "", "□"], [Z("預算書及詳細價目表", "Budget and bill of quantities"), "", "□"], [Z("單價分析及數量計算書", "Unit-rate analysis and quantity calculations"), "", "□"]])] });
+      sec(Z("三、查核項目", "3 Checks"), { t: [T_([Z("項次", "No."), Z("查核項目", "Check"), Z("結果", "Result"), Z("說明", "Notes")], [8, 47, 18, 27], [["1", Z("圖說項目於預算書均有對應工項", "Every drawn item has a budget item"), Z("□符合 □不符", "□ OK □ Not OK"), ""], ["2", Z("預算工項於圖說或規範有依據", "Every budget item is backed by drawings or specs"), Z("□符合 □不符", "□ OK □ Not OK"), ""], ["3", Z("規範材料規格與圖說標示一致", "Spec materials match drawing notes"), Z("□符合 □不符", "□ OK □ Not OK"), ""], ["4", Z("數量計算與圖說尺寸相符", "Quantities match drawing dimensions"), Z("□符合 □不符", "□ OK □ Not OK"), ""], ["5", Z("各專業圖說介面無矛盾", "No contradictions between disciplines"), Z("□符合 □不符", "□ OK □ Not OK"), ""], ["6", Z("單價分析工料項目合理完整", "Unit-rate analyses are complete and reasonable"), Z("□符合 □不符", "□ OK □ Not OK"), ""]])] });
+      sec(Z("四、發現事項及處理", "4 Findings and actions"), { t: [T_([Z("項次", "No."), Z("圖號／規範章節", "Drawing / spec clause"), Z("預算項次", "BoQ item"), Z("問題類型", "Issue type"), Z("說明", "Description"), Z("建議修正", "Proposed fix")], [17, 17, 17, 17, 17, 17], blank(6, 6))] });
+      sec(Z("五、結論與建議", "5 Conclusion and recommendations"), { list: [Z("審查結論：□ 同意　□ 修正後同意　□ 不同意，請廠商修正後重送。", "Conclusion: □ Accepted □ Accepted with changes □ Rejected — revise and resubmit."), Z("重大事項請於 7 日曆天內提出改善說明，並列入下次會議追蹤。", "Major items need a written response within 7 calendar days and are tracked at the next meeting."), Z("本報告依所提供資料辦理；資料不足部分已列於發現事項。", "This review covers the documents provided; gaps are listed under findings.")] });
+      S.sign = [Z("PCM 審查人", "PCM reviewer"), Z("PCM 計畫主持人", "PCM project lead"), Z(TT.owner || "業主", "Client")];
+      break;
+  } }
+} });

@@ -1,0 +1,17 @@
+/* AEC PRISM · BEP & EIR Studio — optional template PM-02 工程進度落後分析及改善建議報告 · Schedule delay analysis and recovery report
+   PCM (project management consultant) document. Separate file, loaded only when a project uses it. */
+PRISM_TPL.add("PM-02", { spec(X) {
+  let { code, p, lang, zh, a, sector, TT, std, C, pt, cv, Z, bx, TBD, v, t, title, sub, owner, subKey, subName, st, stN, team, discs, discN, midp, train, trTot, lodOf, reqs, subRev, rev, today, swList, cde, crs, naming, namingFields, namingEx, hard, tol, usesL, blank, num, signPub, signForm, S, sec, T_, statusOpts, okCols } = X;
+  switch (0) { default: {
+      S.kind = "report";
+      const name = v(a.name), client = v(a.client);
+      sec(Z("一、目的與範圍", "1 Purpose and scope"), { p: [Z(`本報告就「${name}」比較預定與實際進度，分析落後原因與要徑影響，評估趕工方案並提出改善建議。`, `For ${name}: Compare planned and actual progress, analyze causes and critical-path impact, assess recovery options and recommend actions.`)], t: [T_([Z("項目", "Item"), Z("內容", "Detail")], [28, 72], [[Z("工程名稱", "Project"), name], [Z("業主／主辦機關", "Client"), client], [Z("報告期間", "Reporting period"), ""], [Z("報告日期", "Report date"), today || ""], [Z("撰寫人", "Prepared by"), ""]])] });
+      sec(Z("二、依據及資料", "2 Basis and source data"), { t: [T_([Z("資料名稱", "Document"), Z("版次／日期", "Rev. / date"), Z("收到", "Received")], [56, 26, 18], [[Z("契約預定進度表（網圖／甘特圖）", "Contract baseline program"), "", "□"], [Z("施工日誌及監造報表", "Site diaries and supervision reports"), "", "□"], [Z("月進度報表及估驗資料", "Monthly progress and payment records"), "", "□"], [Z("變更設計及停工紀錄", "Variations and suspension records"), "", "□"]])] });
+      sec(Z("三、報告編製檢核", "3 Report preparation checks"), { t: [T_([Z("項次", "No."), Z("查核項目", "Check"), Z("結果", "Result"), Z("說明", "Notes")], [8, 47, 18, 27], [["1", Z("預定與實際進度差異已量化", "Planned vs actual variance quantified"), Z("□符合 □不符", "□ OK □ Not OK"), ""], ["2", Z("落後工項已對應要徑", "Delayed activities mapped to the critical path"), Z("□符合 □不符", "□ OK □ Not OK"), ""], ["3", Z("落後原因已歸責分類", "Causes classified by responsibility"), Z("□符合 □不符", "□ OK □ Not OK"), ""], ["4", Z("相依工項影響已評估", "Impact on dependent activities assessed"), Z("□符合 □不符", "□ OK □ Not OK"), ""], ["5", Z("趕工方案具人力機具可行性", "Recovery options feasible for labour and plant"), Z("□符合 □不符", "□ OK □ Not OK"), ""], ["6", Z("修正進度表已提出", "Revised program submitted"), Z("□符合 □不符", "□ OK □ Not OK"), ""]])] });
+      sec(Z("四、進度比較（依階段）", "4 Progress by stage"), { t: [T_([Z("階段", "Stage"), Z("預定完成日", "Planned"), Z("預定 %", "Planned %"), Z("實際 %", "Actual %"), Z("差異", "Variance")], [28, 20, 17, 17, 18], st.length ? st.map(s => [stN(s.key), (a.stages[s.key] || {}).date || "", "", "", ""]) : blank(5, 5))] });
+      sec(Z("五、發現事項及處理", "5 Findings and actions"), { t: [T_([Z("工項", "Activity"), Z("預定 %", "Planned %"), Z("實際 %", "Actual %"), Z("差異", "Variance"), Z("落後原因", "Cause"), Z("改善措施", "Recovery action")], [17, 17, 17, 17, 17, 17], blank(6, 6))] });
+      sec(Z("六、結論與建議", "6 Conclusion and recommendations"), { list: [Z("分析結論：□ 進度正常　□ 輕微落後，依改善措施追蹤　□ 嚴重落後，請業主召開專案會議。", "Conclusion: □ On schedule □ Slightly behind, track the recovery actions □ Seriously behind, owner to call a project meeting."), Z("廠商應於 7 日曆天內提出趕工計畫，並列入下次會議追蹤。", "The contractor submits a recovery program within 7 calendar days, tracked at the next meeting."), Z("本報告依所提供資料分析；資料不足部分已列於發現事項。", "This analysis uses the data provided; gaps are listed under findings.")] });
+      S.sign = [Z("PCM 審查人", "PCM reviewer"), Z("PCM 計畫主持人", "PCM project lead"), Z(TT.owner || "業主", "Client")];
+      break;
+  } }
+} });
