@@ -5430,7 +5430,7 @@ function render() {
   if (S.store === "loading") { app.innerHTML = `<section class="sheet"><div class="empty"><p class="label">${T("loading")}</p></div></section>`; return; }
   const p = P();
   document.documentElement.classList.remove("ent-own", "ent-pcm", "ent-sup", "ent-dt"); if (S.ent) document.documentElement.classList.add("ent-" + S.ent);
-  app.innerHTML = p ? projectView(p) : (S.page === "clients" ? clientsView() : S.page === "intake" ? intakeView() : S.page === "outputs" ? outputsView() : S.page === "entity" ? entityView() : S.page === "lib" ? libraryView() : S.page === "rules" ? rulesLibView() : S.page === "projects" ? homeView(true) : homeView());
+  app.innerHTML = p ? projectView(p) : (S.page === "clients" ? clientsView() : S.page === "intake" ? intakeView() : S.page === "outputs" ? outputsView() : S.page === "client-projects" ? clientProjectsView() : S.page === "entity" ? entityView() : S.page === "lib" ? libraryView() : S.page === "rules" ? rulesLibView() : S.page === "projects" ? homeView(true) : homeView());
   app.querySelectorAll("textarea").forEach(autosize);
   paintChrome();
   { const dc = document.getElementById("dlctl"); if (dc && S.dlKeep) dc.scrollTop = S.dlKeep; }
@@ -5544,10 +5544,10 @@ document.addEventListener("submit", e => { if (e.target.id !== "wb-new-form") re
   const id = uid(), np = newProject(id); np.docLang = "zh"; np.a.name = name; prismCodeEnsure(np); np.ent = null; if (S.client && S.client !== NOCLIENT) np.a.client = S.client;
   initStd(np, S.ruleDefaults.std); seedRlib(np, "template"); generateReqs(np); np.updatedAt = Date.now(); S.projects[id] = np; save(np, true);
   S.wbNew = false; S.wbTarget = id; S.wbFresh = id; S.wbRailPage = 0;
-  S.page = "entity"; S.cur = null; S.wbEnt = null; S.wbStg = null; S.wbStgPrev = null; S.wbPage = 0;
+  S.page = "client-projects"; S.cur = null; S.wbEnt = null; S.wbStg = null; S.wbStgPrev = null; S.wbPage = 0;
   S.wbMsg = both(`已建立「${name}」（${np.a.code}）。請選擇您的單位繼續。`, `${name} created (${np.a.code}). Choose your party to continue.`);
   render(); window.scrollTo(0, 0);
-  requestAnimationFrame(() => { const first = document.querySelector(".wb-ents .wb-ent"); if (first) first.focus({ preventScroll: true }); }); });
+  requestAnimationFrame(() => { const first = document.querySelector(".cp-project[data-id]"); if (first) first.focus({ preventScroll: true }); }); });
 document.addEventListener("change", e => { const i = e.target; if (!i || !["itk-name", "itk-code", "itk-tender"].includes(i.id)) return; const p = S.projects[S.itk]; if (!p) return;
   const path = { "itk-name": "a.name", "itk-code": "a.code", "itk-tender": "a.tenderNo" }[i.id]; let v = i.value.trim();
   if (path === "a.code") { v = prismCodeClean(v) || prismCodeNext(p.createdAt, p.id); i.value = v; } p.a[path.slice(2)] = v;
@@ -6087,6 +6087,29 @@ function wbRail() {
     ${pages > 1 ? `<nav class="wb-rail-pg" aria-label="${esc(both("專案頁面", "Project pages"))}"><button class="wb-pg wb-arw" data-act="wb-rp" data-p="${S.wbRailPage - 1}" ${S.wbRailPage ? "" : "disabled"} aria-label="${esc(both("上一頁", "Previous page"))}">‹</button><span class="mono">${S.wbRailPage + 1} / ${pages}</span><button class="wb-pg wb-arw" data-act="wb-rp" data-p="${S.wbRailPage + 1}" ${S.wbRailPage < pages - 1 ? "" : "disabled"} aria-label="${esc(both("下一頁", "Next page"))}">›</button></nav>` : ""}
     ${S.wbMsg ? `<p class="wb-rail-msg" role="status">${esc(S.wbMsg)}</p>` : ""}
   </aside>`; }
+/* Client-specific project selection is an explicit step before choosing a party. */
+function clientProjectsView() {
+  const key = S.client || NOCLIENT;
+  const projects = Object.values(S.projects).filter(q => clientKey(q) === key)
+    .sort((a,b) => (b.updatedAt || 0) - (a.updatedAt || 0));
+  const active = projects.some(q => q.id === S.wbTarget) ? S.wbTarget : (projects[0] && projects[0].id);
+  const cards = projects.map(q => `<button type="button" class="cp-project" data-act="cp-select" data-id="${esc(q.id)}"
+      style="display:flex;width:100%;align-items:center;justify-content:space-between;gap:16px;text-align:left;padding:18px 20px;margin:10px 0;border:1px solid ${q.id===active?"#278947":"#dfe5e8"};background:#fff;border-radius:12px;cursor:pointer">
+      <span><strong style="display:block;font-size:17px;color:#151515">${esc(q.a.name || T("untitled"))}</strong>
+      <small class="mono" style="color:#69737a">${esc(q.a.code || "")}</small></span>
+      <span style="color:#278947;font-weight:700;white-space:nowrap">${both("選擇並繼續 →","Select & continue →")}</span></button>`).join("");
+  return `<section class="sheet" id="client-projects" style="max-width:1050px;margin:28px auto;padding:24px">
+    <div class="homehead"><div><p class="label">${both("業主專案","Client projects")}</p>
+    <h1>${esc(clientLabel(key))}</h1><p class="hint">${projects.length} ${both("個相關專案","related projects")}</p></div></div>
+    <h2 style="font-size:21px;margin:20px 0 8px">${both("選擇專案","Choose a project")}</h2>
+    <p class="hint">${both("先從此業主的專案清單中選擇專案，下一頁將選擇您的單位。","Select one of this client's projects. The next page is Choose your party.")}</p>
+    ${cards || `<p class="hint">${both("此業主尚無專案。","No projects for this client yet.")}</p>`}
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:22px">
+      <button type="button" class="btn" data-act="cp-new">${both("＋ 新增專案","＋ New project")}</button>
+      <button type="button" class="btn ghost" data-act="clients-page">${both("返回業主","Back to clients")}</button>
+    </div>
+  </section>`;
+}
 function entityView() {
   const n = k => (typeof TEMPLATES !== "undefined" ? TEMPLATES.filter(t => tplIn(t, k)).length : 0);
   const SEL = new Set(wbSelGet()), nSel = SEL.size;
@@ -6602,8 +6625,10 @@ document.addEventListener("click", async e => {
   const b = e.target.closest("[data-act]"); if (!b) return;
   const act = b.dataset.act, p = P();
   switch (act) {
+    case "cp-select": { const q = S.projects[b.dataset.id]; if (!q || clientKey(q) !== (S.client || NOCLIENT)) return; S.wbTarget = q.id; S.wbFresh = null; S.wbEnt = null; S.wbStg = null; S.wbStgPrev = null; S.page = "entity"; S.cur = null; render(); window.scrollTo(0,0); return; }
+    case "cp-new": S.page = "entity"; S.cur = null; S.wbNew = true; S.wbMsg = null; render(); setTimeout(() => { const input = document.getElementById("wb-new-name"); if (input) input.focus(); },0); return;
     case "projects": S.cur = null; S.page = "projects"; RU.off = null; RU.fix = null; S.confirmDel = null; render(); window.scrollTo(0, 0); return;
-    case "pick-client": { const k = b.dataset.k || null; S.client = k; try { if (k) localStorage.setItem("prism.client", k); else localStorage.removeItem("prism.client"); } catch (e) {} S.folder = k; S.pfPage = 0; S.cur = null; S.wbEnt = null; S.wbStg = null; S.page = "entity"; render(); window.scrollTo(0, 0); return; }
+    case "pick-client": { const k = b.dataset.k || null; S.client = k; try { if (k) localStorage.setItem("prism.client", k); else localStorage.removeItem("prism.client"); } catch (e) {} S.folder = k; S.pfPage = 0; S.cur = null; S.wbEnt = null; S.wbStg = null; S.page = "client-projects"; render(); window.scrollTo(0, 0); return; }
     case "cl-add": S.clForm = { mode: "new" }; S.clMsg = null; S.clDel = null; render(); window.scrollTo(0, 0); setTimeout(() => { const f = document.getElementById("clf-name"); if (f) f.focus(); }, 0); return;
     case "cl-edit": { const k = b.dataset.k, r = clByName(k); S.clForm = r ? { mode: "edit", id: r.id } : { mode: "new", seed: { name: k } }; S.clMsg = null; S.clDel = null; render(); window.scrollTo(0, 0); setTimeout(() => { const f = document.getElementById("clf-code"); if (f) f.focus(); }, 0); return; }
     case "cl-cancel": S.clForm = null; S.clMsg = null; S.clDel = null; render(); return;
