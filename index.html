@@ -1274,7 +1274,7 @@ html.is-fs .fsbtn .fs-off{display:block}
 
 <div class="wrap">
   <header class="top">
-    <button class="brand" data-act="home" aria-label="All projects">
+    <button class="brand" data-act="home" aria-label="Client list">
       <span class="lgw"><img class="mk" id="lg-mark" alt="">
       <img class="wm" id="lg-word" alt="AEC PRISM"></span>
       <span class="prod" id="prod">AEC DOCs</span>
@@ -5570,8 +5570,8 @@ document.addEventListener("submit", async e => { if (e.target.id !== "cl-form") 
   /* a renamed client renames its projects' client field too */
   if (oldName && oldName !== name) { Object.values(S.projects).filter(p => clientKey(p) === oldName).forEach(p => { p.a.client = name; save(p, true); }); if (S.client === oldName) { S.client = name; try { localStorage.setItem("prism.client", name); } catch (er) {} } }
   S.clForm = null; S.clMsg = null; S.clFresh = c.id;
-  // v127: Saving a new client opens that client's workspace immediately,
-  // identical to clicking its client card; editing an existing client stays on the list.
+  // Saving a new client opens that client's project list, not the party selection workspace.
+  // Editing an existing client stays on the client list.
   if (!F.id) {
     S.client = name;
     try { localStorage.setItem("prism.client", name); } catch (er) {}
@@ -5580,7 +5580,10 @@ document.addEventListener("submit", async e => { if (e.target.id !== "cl-form") 
     S.cur = null;
     S.wbEnt = null;
     S.wbStg = null;
-    S.page = "entity";
+    S.wbTarget = null;
+    S.wbFresh = null;
+    S.wbNew = false;
+    S.page = "client-projects";
     render();
     window.scrollTo(0, 0);
     return;
@@ -6096,11 +6099,11 @@ function clientProjectsView() {
       <small class="mono" style="color:#69737a">${esc(q.a.code || "")}</small></span>
       <span style="color:#278947;font-weight:700;white-space:nowrap">${both("選擇並繼續 →","Select & continue →")}</span></button>`).join("");
   return `<section class="sheet" id="client-projects" style="max-width:1050px;margin:28px auto;padding:24px">
-    <div class="homehead"><div><p class="label">${both("業主專案","Client projects")}</p>
+    <div class="homehead"><div><p class="label">${both("02 / 業主專案清單","02 / Client project list")}</p>
     <h1>${esc(clientLabel(key))}</h1><p class="hint">${projects.length} ${both("個相關專案","related projects")}</p></div></div>
-    <h2 style="font-size:21px;margin:20px 0 8px">${both("選擇專案","Choose a project")}</h2>
+    <h2 style="font-size:21px;margin:20px 0 8px">${both("此業主的專案清單","Projects for this client")}</h2>
     <p class="hint">${both("先從此業主的專案清單中選擇專案，下一頁將選擇您的單位。","Select one of this client's projects. The next page is Choose your party.")}</p>
-    ${cards || `<p class="hint">${both("此業主尚無專案。","No projects for this client yet.")}</p>`}
+    ${cards || `<p class="hint">${both("此業主尚無專案。請按下方「新增專案」開始。","No projects for this client yet. Use New project below to create the first one.")}</p>`}
     ${S.wbNew ? `<form class="wb-newf" id="wb-new-form" style="max-width:490px;margin:20px 0">
       <label for="wb-new-name" class="mono">${both("專案名稱", "Project name")}</label>
       <input id="wb-new-name" type="text" required autocomplete="off" placeholder="${esc(both("例：中和國民運動中心新建工程", "e.g. Zhonghe Sports Center"))}">
@@ -6635,10 +6638,10 @@ document.addEventListener("click", async e => {
   const act = b.dataset.act, p = P();
   switch (act) {
     case "cp-back": S.page = "client-projects"; S.cur = null; S.wbNew = false; S.wbMsg = null; render(); window.scrollTo(0,0); return;
-    case "cp-select": { const q = S.projects[b.dataset.id]; if (!q || clientKey(q) !== (S.client || NOCLIENT)) return; S.wbTarget = q.id; S.wbFresh = null; S.wbEnt = null; S.wbStg = null; S.wbStgPrev = null; S.page = "entity"; S.cur = null; render(); window.scrollTo(0,0); return; }
+    case "cp-select": { const q = S.projects[b.dataset.id]; if (!q || clientKey(q) !== (S.client || NOCLIENT)) return; S.wbNew = false; S.wbTarget = q.id; S.wbFresh = null; S.wbEnt = null; S.wbStg = null; S.wbStgPrev = null; S.page = "entity"; S.cur = null; render(); window.scrollTo(0,0); return; }
     case "cp-new": S.page = "client-projects"; S.cur = null; S.wbNew = true; S.wbMsg = null; render(); setTimeout(() => { const input = document.getElementById("wb-new-name"); if (input) input.focus(); },0); return;
     case "projects": S.cur = null; S.page = "projects"; RU.off = null; RU.fix = null; S.confirmDel = null; render(); window.scrollTo(0, 0); return;
-    case "pick-client": { const k = b.dataset.k || null; S.client = k; try { if (k) localStorage.setItem("prism.client", k); else localStorage.removeItem("prism.client"); } catch (e) {} S.folder = k; S.pfPage = 0; S.cur = null; S.wbEnt = null; S.wbStg = null; S.page = "client-projects"; render(); window.scrollTo(0, 0); return; }
+    case "pick-client": { const k = b.dataset.k || null; S.client = k; try { if (k) localStorage.setItem("prism.client", k); else localStorage.removeItem("prism.client"); } catch (e) {} S.folder = k; S.pfPage = 0; S.cur = null; S.wbEnt = null; S.wbStg = null; S.wbTarget = null; S.wbFresh = null; S.wbNew = false; S.wbMsg = null; S.page = "client-projects"; render(); window.scrollTo(0, 0); return; }
     case "cl-add": S.clForm = { mode: "new" }; S.clMsg = null; S.clDel = null; render(); window.scrollTo(0, 0); setTimeout(() => { const f = document.getElementById("clf-name"); if (f) f.focus(); }, 0); return;
     case "cl-edit": { const k = b.dataset.k, r = clByName(k); S.clForm = r ? { mode: "edit", id: r.id } : { mode: "new", seed: { name: k } }; S.clMsg = null; S.clDel = null; render(); window.scrollTo(0, 0); setTimeout(() => { const f = document.getElementById("clf-code"); if (f) f.focus(); }, 0); return; }
     case "cl-cancel": S.clForm = null; S.clMsg = null; S.clDel = null; render(); return;
@@ -8220,7 +8223,7 @@ document.addEventListener("drop", async e => {
   const p = P(); if (p && e.dataTransfer && e.dataTransfer.files.length) await handleFiles(p, [...e.dataTransfer.files]);
 });
 /* ===================== BEP RESPONSE LIBRARY ===================== */
-S.lib = {}; S.page = S.page === "entity" || S.page === "clients" || S.page === "intake" || S.page === "outputs" ? S.page : null; S.libFrom = null;
+S.lib = {}; S.page = ["clients", "client-projects", "entity", "intake", "outputs"].includes(S.page) ? S.page : null; S.libFrom = null;
 const LIB = { busy: "", msg: null, draft: [], del: null, timers: {} };
 const LIB_LS = "prism-bep-library";
 function libList() { return Object.values(S.lib).sort((a, b) => a.sec - b.sec || (a.key || "~").localeCompare(b.key || "~") || (a.at || 0) - (b.at || 0)); }
