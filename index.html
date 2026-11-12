@@ -6065,28 +6065,25 @@ function wbRing(q) { const docs = itkDocs(q), n = docs.length, pc = n ? Math.rou
   const ready = docs.filter(t => itkNeeds(t).every(k => itkFiles(q, k).length > 0)).length, c = pc >= 100 ? VC.ok : pc >= 50 ? VC.mid : VC.bad, L = 2 * Math.PI * 13;
   return { pc, tip: both(`開啟專案 · 資料完整度 ${pc}% · 業主資料齊全 ${ready}/${n} 份文件`, `Open project · data ${pc}% complete · client inputs ready for ${ready} of ${n} documents`),
     svg: `<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13" fill="none" stroke="#EEF0F3" stroke-width="3.2"/><circle cx="16" cy="16" r="13" fill="none" stroke="${c}" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="${(L * pc / 100).toFixed(1)} ${L.toFixed(1)}" transform="rotate(-90 16 16)"/></svg><span class="wb-ring-v mono">${pc}<small>%</small></span><span class="wb-ring-go" aria-hidden="true">→</span>` }; }
+/* The party-and-stage workspace belongs to one selected project, not a client-wide project list. */
 function wbRail() {
-  const ps = wbTargets(), tid = S.wbTarget && S.projects[S.wbTarget] ? S.wbTarget : null;
-  const PER = Math.max(1, (innerWidth < 1100 ? 4 : S.wbRailPer) || 6), pages = Math.max(1, Math.ceil(ps.length / PER));
-  S.wbRailPage = Math.min(Math.max(0, S.wbRailPage || 0), pages - 1);
-  const shown = ps.slice(S.wbRailPage * PER, S.wbRailPage * PER + PER);
-  const ymd = t => localISO(new Date(t || Date.now()));
-  const item = q => { const on = q.id === tid, e = TPL_ENT.find(x => x.k === q.ent), nT = (q.tplOn || []).length;
-    return `<li class="wb-pi${on ? " on" : ""}${S.wbFresh === q.id ? " fresh" : ""}"><button class="wb-pi-b" data-act="wb-target" data-id="${q.id}" aria-pressed="${on}" title="${esc(both("設為加入範本之目標專案", "Make this the project picked templates go into"))}">
-      <span class="wb-pi-t"><b>${esc(q.a.name || T("untitled"))}</b>${on ? `<em class="mono">${both("目標", "Target")}</em>` : ""}</span>
-      <small class="mono">${[q.a.code, e ? e.zh : "", nT ? `${nT} ${both("份範本", "tpl")}` : "", ymd(q.updatedAt)].filter(Boolean).map(esc).join(" · ")}</small></button>
-      <button class="wb-pi-o" data-act="wb-open-p" data-id="${q.id}" aria-label="${esc(both(`開啟「${q.a.name || "未命名專案"}」`, `Open ${q.a.name || "Untitled project"}`))}" title="${esc(wbRing(q).tip)}">${wbRing(q).svg}</button></li>`; };
-  const form = S.wbNew ? `<form class="wb-newf" id="wb-new-form"><label for="wb-new-name" class="mono">${both("專案名稱", "Project name")}</label>
-      <input id="wb-new-name" type="text" autocomplete="off" placeholder="${esc(both("例：中和國民運動中心新建工程", "e.g. Zhonghe Sports Center"))}">
-      <span class="wb-newf-a"><button type="submit" class="btn small primary">${both("建立", "Create")}</button><button type="button" class="btn small ghost" data-act="wb-new-x">${both("取消", "Cancel")}</button></span></form>`
-    : `<button class="btn primary wb-newb" data-act="wb-new">＋ ${T("newProject")}</button>`;
-  return `<aside class="wb-rail" aria-label="${esc(both("本業主專案", "This client's projects"))}">
-    <div class="wb-rail-h"><b>${both("專案", "Projects")}</b><span class="mono">${S.client ? esc(clientLabel(S.client)) : both("全部業主", "All clients")} · ${ps.length}</span></div>
-    ${form}
-    ${ps.length ? `<ul class="wb-rail-l">${shown.map(item).join("")}</ul>` : `<p class="wb-rail-e hint">${both("此業主尚無專案。按「新增專案」建立第一個。", "No projects for this client yet. Use New project to start one.")}</p>`}
-    ${pages > 1 ? `<nav class="wb-rail-pg" aria-label="${esc(both("專案頁面", "Project pages"))}"><button class="wb-pg wb-arw" data-act="wb-rp" data-p="${S.wbRailPage - 1}" ${S.wbRailPage ? "" : "disabled"} aria-label="${esc(both("上一頁", "Previous page"))}">‹</button><span class="mono">${S.wbRailPage + 1} / ${pages}</span><button class="wb-pg wb-arw" data-act="wb-rp" data-p="${S.wbRailPage + 1}" ${S.wbRailPage < pages - 1 ? "" : "disabled"} aria-label="${esc(both("下一頁", "Next page"))}">›</button></nav>` : ""}
-    ${S.wbMsg ? `<p class="wb-rail-msg" role="status">${esc(S.wbMsg)}</p>` : ""}
-  </aside>`; }
+  const q = S.wbTarget && S.projects[S.wbTarget];
+  if (!q || (S.client && clientKey(q) !== S.client)) {
+    return `<aside class="wb-rail"><div class="wb-rail-h"><b>${both("目前專案","Selected project")}</b></div>
+      <p class="hint">${both("請先選擇專案。","Please select a project first.")}</p>
+      <button class="btn" data-act="cp-back">${both("選擇專案","Choose a project")}</button></aside>`;
+  }
+  const ring = wbRing(q);
+  return `<aside class="wb-rail" aria-label="${esc(both("目前專案","Selected project"))}">
+    <div class="wb-rail-h"><b>${both("目前專案","Selected project")}</b><span class="mono">${esc(q.a.code || "")}</span></div>
+    <div class="wb-pi on" style="padding:14px;border:1px solid #278947;border-radius:12px;background:#f5fcf6">
+      <b style="display:block;overflow-wrap:anywhere;font-size:16px">${esc(q.a.name || T("untitled"))}</b>
+      <small class="mono" style="display:block;margin-top:8px;color:#64726b">${esc(q.a.code || "")}</small>
+      <small style="display:block;margin-top:6px;color:#64726b">${esc(clientLabel(clientKey(q)))}</small>
+    </div>
+    <button class="btn ghost" style="width:100%;margin-top:16px" data-act="cp-back">${both("← 返回專案清單","← Back to project list")}</button>
+  </aside>`;
+}
 /* Client-specific project selection is an explicit step before choosing a party. */
 function clientProjectsView() {
   const key = S.client || NOCLIENT;
@@ -6104,6 +6101,11 @@ function clientProjectsView() {
     <h2 style="font-size:21px;margin:20px 0 8px">${both("選擇專案","Choose a project")}</h2>
     <p class="hint">${both("先從此業主的專案清單中選擇專案，下一頁將選擇您的單位。","Select one of this client's projects. The next page is Choose your party.")}</p>
     ${cards || `<p class="hint">${both("此業主尚無專案。","No projects for this client yet.")}</p>`}
+    ${S.wbNew ? `<form class="wb-newf" id="wb-new-form" style="max-width:490px;margin:20px 0">
+      <label for="wb-new-name" class="mono">${both("專案名稱", "Project name")}</label>
+      <input id="wb-new-name" type="text" required autocomplete="off" placeholder="${esc(both("例：中和國民運動中心新建工程", "e.g. Zhonghe Sports Center"))}">
+      <span class="wb-newf-a"><button type="submit" class="btn small primary">${both("建立","Create")}</button>
+      <button type="button" class="btn small ghost" data-act="wb-new-x">${both("取消","Cancel")}</button></span></form>` : ""}
     <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:22px">
       <button type="button" class="btn" data-act="cp-new">${both("＋ 新增專案","＋ New project")}</button>
       <button type="button" class="btn ghost" data-act="clients-page">${both("返回業主","Back to clients")}</button>
@@ -6153,6 +6155,13 @@ function entityView() {
         <span class="wb-lh-a"><button class="btn" data-act="projects">${both("我的專案", "My projects")}</button></span></div>
       <ul class="wb-list">${list.map(card).join("")}</ul>${pager}`;
   return `<div class="wbx" style="--wec:${ec}">${wbRail()}<section class="wb">
+    ${(() => { const q = S.wbTarget && S.projects[S.wbTarget]; return q
+      ? `<div class="wb-selected-project" style="padding:15px 20px;margin-bottom:12px;border:2px solid #2b70db;border-radius:12px;background:#f4f8ff">
+          <span class="mono" style="font-size:11px;color:#315eaf">${both("已選擇專案","SELECTED PROJECT")}</span>
+          <strong style="display:block;font-size:19px;color:#182334;margin:5px 0">${esc(q.a.name || T("untitled"))}</strong>
+          <span class="mono" style="font-size:12px;color:#53657d">${esc(q.a.code || "")} · ${esc(clientLabel(clientKey(q)))}</span>
+        </div>`
+      : `<div class="wb-selected-project" style="padding:15px 20px;margin-bottom:12px;border:2px solid #2b70db;border-radius:12px">${both("請先選擇專案","Please choose a project first")}</div>`; })()}
     <div class="wb-band wb-b1"><div class="wb-head"><span class="wb-step mono">1</span><span class="wb-q">${both("選擇您的單位", "Choose your party")}</span>
         <span class="wb-cl"><span class="mono">${both("業主", "Client")}</span><b>${S.client ? esc(clientLabel(S.client)) : both("未指定", "None")}</b><button class="linkbtn" data-act="clients-page">${S.client ? both("變更業主", "Change client") : both("選擇業主", "Choose a client")}</button></span></div>
       <div class="wb-ents">${ents}</div></div>
@@ -6625,8 +6634,9 @@ document.addEventListener("click", async e => {
   const b = e.target.closest("[data-act]"); if (!b) return;
   const act = b.dataset.act, p = P();
   switch (act) {
+    case "cp-back": S.page = "client-projects"; S.cur = null; S.wbNew = false; S.wbMsg = null; render(); window.scrollTo(0,0); return;
     case "cp-select": { const q = S.projects[b.dataset.id]; if (!q || clientKey(q) !== (S.client || NOCLIENT)) return; S.wbTarget = q.id; S.wbFresh = null; S.wbEnt = null; S.wbStg = null; S.wbStgPrev = null; S.page = "entity"; S.cur = null; render(); window.scrollTo(0,0); return; }
-    case "cp-new": S.page = "entity"; S.cur = null; S.wbNew = true; S.wbMsg = null; render(); setTimeout(() => { const input = document.getElementById("wb-new-name"); if (input) input.focus(); },0); return;
+    case "cp-new": S.page = "client-projects"; S.cur = null; S.wbNew = true; S.wbMsg = null; render(); setTimeout(() => { const input = document.getElementById("wb-new-name"); if (input) input.focus(); },0); return;
     case "projects": S.cur = null; S.page = "projects"; RU.off = null; RU.fix = null; S.confirmDel = null; render(); window.scrollTo(0, 0); return;
     case "pick-client": { const k = b.dataset.k || null; S.client = k; try { if (k) localStorage.setItem("prism.client", k); else localStorage.removeItem("prism.client"); } catch (e) {} S.folder = k; S.pfPage = 0; S.cur = null; S.wbEnt = null; S.wbStg = null; S.page = "client-projects"; render(); window.scrollTo(0, 0); return; }
     case "cl-add": S.clForm = { mode: "new" }; S.clMsg = null; S.clDel = null; render(); window.scrollTo(0, 0); setTimeout(() => { const f = document.getElementById("clf-name"); if (f) f.focus(); }, 0); return;
