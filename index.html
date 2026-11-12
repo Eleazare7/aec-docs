@@ -5541,9 +5541,13 @@ let pfRT = 0;
 document.addEventListener("submit", e => { if (e.target.id !== "wb-new-form") return; e.preventDefault();
   const i = document.getElementById("wb-new-name"), name = (i && i.value || "").trim();
   if (!name) { if (i) { i.setAttribute("aria-invalid", "true"); i.focus(); } return; }
-  const id = uid(), np = newProject(id); np.docLang = "zh"; np.a.name = name; prismCodeEnsure(np); const ent = S.wbEnt || S.ent; if (ent) np.ent = ent; if (S.client && S.client !== NOCLIENT) np.a.client = S.client;
+  const id = uid(), np = newProject(id); np.docLang = "zh"; np.a.name = name; prismCodeEnsure(np); np.ent = null; if (S.client && S.client !== NOCLIENT) np.a.client = S.client;
   initStd(np, S.ruleDefaults.std); seedRlib(np, "template"); generateReqs(np); np.updatedAt = Date.now(); S.projects[id] = np; save(np, true);
-  S.wbNew = false; S.wbTarget = id; S.wbFresh = id; S.wbRailPage = 0; S.wbMsg = both(`已建立「${name}」（${np.a.code}），選取之範本將加入此專案。`, `${name} created (${np.a.code}); picked templates go into it.`); render(); });
+  S.wbNew = false; S.wbTarget = id; S.wbFresh = id; S.wbRailPage = 0;
+  S.page = "entity"; S.cur = null; S.wbEnt = null; S.wbStg = null; S.wbStgPrev = null; S.wbPage = 0;
+  S.wbMsg = both(`已建立「${name}」（${np.a.code}）。請選擇您的單位繼續。`, `${name} created (${np.a.code}). Choose your party to continue.`);
+  render(); window.scrollTo(0, 0);
+  requestAnimationFrame(() => { const first = document.querySelector(".wb-ents .wb-ent"); if (first) first.focus({ preventScroll: true }); }); });
 document.addEventListener("change", e => { const i = e.target; if (!i || !["itk-name", "itk-code", "itk-tender"].includes(i.id)) return; const p = S.projects[S.itk]; if (!p) return;
   const path = { "itk-name": "a.name", "itk-code": "a.code", "itk-tender": "a.tenderNo" }[i.id]; let v = i.value.trim();
   if (path === "a.code") { v = prismCodeClean(v) || prismCodeNext(p.createdAt, p.id); i.value = v; } p.a[path.slice(2)] = v;
@@ -6617,7 +6621,9 @@ document.addEventListener("click", async e => {
     case "donesec": { const on = b.dataset.on === "1", n = +b.dataset.n; S.bepJump = n; numberReqs(p.eir.reqs || []).filter(r => r.sec === n).forEach(r => { if (respStatus(p, r) === "missing") return; const x = respObj(p, r.key); x.done = on; x.doneUser = true; if (on) stampResp(p, r.key); }); save(p); render(); return; }
     case "expfmt": S.expSel = S.expSel || {}; S.expSel[b.dataset.g || "doc"] = b.dataset.k; render(); return;
     case "expgo": { const box = b.closest(".expbox"), t = box && [...box.querySelectorAll('[data-act="export"]')].find(x => x.dataset.kind === b.dataset.k); if (t && !t.disabled) t.click(); else if (t) { S.msg[b.dataset.k] = { text: L2("此格式目前無法匯出（請先通過發行檢查或確認下載功能）。", "This format cannot be exported right now (pass the issue check or check downloads)."), err: true }; render(); } return; }
-    case "pick-ent": S.ent = b.dataset.k; try { localStorage.setItem("prism.ent", S.ent); } catch (e) {} if (S.entFrom && S.projects[S.entFrom]) { S.cur = S.entFrom; S.page = "project"; S.view = "tpl"; S.tplPv = null; S.entFrom = null; render(); return; } S.entFrom = null; if (S.wbEnt !== S.ent) S.wbStg = null; S.wbEnt = S.ent; S.wbPage = 0; S.page = "entity"; S.cur = null; render(); return;
+    case "pick-ent": S.ent = b.dataset.k; try { localStorage.setItem("prism.ent", S.ent); } catch (e) {}
+      if (S.wbTarget && S.wbFresh === S.wbTarget) { const fresh = S.projects[S.wbTarget]; if (fresh && fresh.ent !== S.ent) { fresh.ent = S.ent; fresh.updatedAt = Date.now(); save(fresh, true); } }
+      if (S.entFrom && S.projects[S.entFrom]) { S.cur = S.entFrom; S.page = "project"; S.view = "tpl"; S.tplPv = null; S.entFrom = null; render(); return; } S.entFrom = null; if (S.wbEnt !== S.ent) S.wbStg = null; S.wbEnt = S.ent; S.wbPage = 0; S.page = "entity"; S.cur = null; render(); return;
     case "pt-page": S.ptPage = +b.dataset.p; render(); { const nb = document.querySelector('[data-act="pt-page"].on'); if (nb) nb.focus(); } return;
     case "wb-page": S.wbPage = +b.dataset.p; render(); { const nb = document.querySelector(`.wb-pg[data-p="${S.wbPage}"].on`); if (nb) nb.focus(); } return;
     case "wb-sel": { const c = b.dataset.code, a = wbSelGet().slice(), i = a.indexOf(c); if (i >= 0) a.splice(i, 1); else a.push(c); wbSelPut(a); render(); const nb = document.querySelector(`.wb-tpl[data-code="${c}"]`); if (nb) nb.focus(); return; }
